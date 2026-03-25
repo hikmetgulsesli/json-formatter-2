@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JSON FORMATTER | Professional Data Tool</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#006875",
+              "on-surface": "#e5e2e1",
+              "on-secondary-container": "#bab8b7",
+              "outline": "#849396",
+              "on-secondary": "#313030",
+              "on-error": "#690005",
+              "on-primary-fixed-variant": "#004f58",
+              "surface-container-low": "#1c1b1b",
+              "surface-dim": "#131313",
+              "secondary-fixed-dim": "#c8c6c5",
+              "primary-fixed": "#9cf0ff",
+              "surface-variant": "#353534",
+              "background": "#131313",
+              "secondary-fixed": "#e5e2e1",
+              "secondary": "#c8c6c5",
+              "on-tertiary": "#3e2e00",
+              "error": "#ffb4ab",
+              "surface-container": "#201f1f",
+              "secondary-container": "#4a4949",
+              "inverse-on-surface": "#313030",
+              "on-primary-container": "#00626e",
+              "on-tertiary-fixed-variant": "#594400",
+              "on-tertiary-fixed": "#251a00",
+              "surface-bright": "#3a3939",
+              "inverse-surface": "#e5e2e1",
+              "tertiary-fixed": "#ffdf96",
+              "tertiary-fixed-dim": "#f3bf26",
+              "surface-container-lowest": "#0e0e0e",
+              "error-container": "#93000a",
+              "on-primary-fixed": "#001f24",
+              "primary-container": "#00e5ff",
+              "surface": "#131313",
+              "on-secondary-fixed-variant": "#474646",
+              "tertiary": "#ffeac0",
+              "on-primary": "#00363d",
+              "surface-container-highest": "#353534",
+              "on-surface-variant": "#bac9cc",
+              "on-tertiary-container": "#6f5500",
+              "primary": "#c3f5ff",
+              "surface-container-high": "#2a2a2a",
+              "on-secondary-fixed": "#1c1b1b",
+              "on-error-container": "#ffdad6",
+              "tertiary-container": "#fec931",
+              "outline-variant": "#3b494c",
+              "primary-fixed-dim": "#00daf3",
+              "surface-tint": "#00daf3",
+              "on-background": "#e5e2e1"
+            },
+            fontFamily: {
+              "mono": ["JetBrains Mono", "monospace"],
+              "headline": ["JetBrains Mono", "monospace"],
+              "body": ["JetBrains Mono", "monospace"],
+              "label": ["JetBrains Mono", "monospace"]
+            },
+            borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'JetBrains Mono', monospace; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+            font-size: 1.25rem;
+        }
+        /* Custom Scrollbar for Terminal Aesthetic */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0e0e0e; }
+        ::-webkit-scrollbar-thumb { background: #2a2a2a; }
+        ::-webkit-scrollbar-thumb:hover { background: #00E5FF; }
+        
+        .monolith-gradient {
+            background: linear-gradient(45deg, #00daf3 0%, #00e5ff 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface antialiased flex flex-col h-screen overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-[#0e0e0e] flex justify-between items-center w-full px-6 h-14 z-50">
+<div class="flex items-center gap-4">
+<span class="text-lg font-bold text-[#00E5FF] tracking-[-0.02em] font-['JetBrains_Mono']">JSON FORMATTER</span>
+<span class="text-[0.6875rem] uppercase tracking-[0.05em] text-on-surface-variant bg-surface-container-high px-2 py-0.5">V1.0.0</span>
+</div>
+<nav class="flex items-center space-x-6">
+<a class="text-[#adaaaa] font-['JetBrains_Mono'] text-sm hover:bg-[#2a2a2a] hover:text-[#ffffff] px-3 py-1 transition-colors duration-150" href="#">Yardım</a>
+<a class="text-[#adaaaa] font-['JetBrains_Mono'] text-sm hover:bg-[#2a2a2a] hover:text-[#ffffff] px-3 py-1 transition-colors duration-150" href="#">Ayarlar</a>
+<div class="h-6 w-[1px] bg-outline-variant/15"></div>
+<button class="material-symbols-outlined text-[#00E5FF] hover:bg-[#2a2a2a] p-2 transition-all">account_circle</button>
+</nav>
+</header>
+<!-- Main Workspace -->
+<main class="flex-1 flex overflow-hidden">
+<!-- SideNavBar (Utility Anchors) -->
+<aside class="bg-[#131313] flex flex-col items-center py-4 space-y-8 w-20 flex-shrink-0">
+<div class="group flex flex-col items-center gap-1 cursor-pointer bg-[#2a2a2a] text-[#00E5FF] border-l-2 border-[#00E5FF] w-full py-4 transition-transform active:translate-x-1">
+<span class="material-symbols-outlined" data-icon="format_align_left">format_align_left</span>
+<span class="font-['JetBrains_Mono'] text-[0.6875rem] uppercase tracking-[0.05em]">Biçimlendir</span>
+</div>
+<div class="group flex flex-col items-center gap-1 cursor-pointer text-[#adaaaa] hover:bg-[#2a2a2a] hover:text-[#ffffff] w-full py-4 transition-all">
+<span class="material-symbols-outlined" data-icon="compress">compress</span>
+<span class="font-['JetBrains_Mono'] text-[0.6875rem] uppercase tracking-[0.05em]">Küçült</span>
+</div>
+<div class="group flex flex-col items-center gap-1 cursor-pointer text-[#adaaaa] hover:bg-[#2a2a2a] hover:text-[#ffffff] w-full py-4 transition-all">
+<span class="material-symbols-outlined" data-icon="content_copy">content_copy</span>
+<span class="font-['JetBrains_Mono'] text-[0.6875rem] uppercase tracking-[0.05em]">Kopyala</span>
+</div>
+<div class="group flex flex-col items-center gap-1 cursor-pointer text-[#adaaaa] hover:bg-[#2a2a2a] hover:text-[#ffffff] w-full py-4 transition-all">
+<span class="material-symbols-outlined" data-icon="delete_sweep">delete_sweep</span>
+<span class="font-['JetBrains_Mono'] text-[0.6875rem] uppercase tracking-[0.05em]">Temizle</span>
+</div>
+</aside>
+<!-- Two-Pane Editor -->
+<div class="flex-1 flex flex-col md:flex-row bg-[#0e0e0e]">
+<!-- Left Pane: Editor -->
+<section class="flex-1 flex flex-col bg-[#131313] relative overflow-hidden">
+<div class="h-10 px-4 flex items-center justify-between bg-surface-container-low border-b border-outline-variant/5">
+<span class="text-[0.6875rem] font-medium text-on-surface-variant uppercase tracking-[0.05em]">GİRİŞ_VERİSİ.JSON</span>
+<div class="flex gap-2">
+<div class="w-2 h-2 bg-primary-container rounded-full"></div>
+<div class="w-2 h-2 bg-surface-container-highest rounded-full"></div>
+</div>
+</div>
+<div class="flex-1 flex flex-col p-6">
+<div class="flex-1 bg-surface-container-lowest p-4 relative group">
+<!-- Line Numbers Emulation -->
+<div class="absolute left-0 top-0 bottom-0 w-10 bg-surface-container flex flex-col items-center py-4 text-[0.6875rem] text-on-surface-variant/30 font-mono select-none">
+<span>01</span><span>02</span><span>03</span><span>04</span><span>05</span><span>06</span><span>07</span><span>08</span>
+</div>
+<textarea class="w-full h-full bg-transparent border-none focus:ring-0 text-sm font-mono text-primary leading-relaxed resize-none pl-10 placeholder:text-on-surface-variant/30" placeholder="JSON yapıştırın veya sürükleyip bırakın"></textarea>
+</div>
+</div>
+</section>
+<!-- Separation Gap (Editorial Style) -->
+<div class="w-[1px] bg-outline-variant/15 hidden md:block"></div>
+<!-- Right Pane: Viewer -->
+<section class="flex-1 flex flex-col bg-[#0e0e0e] relative">
+<div class="h-10 px-4 flex items-center justify-between bg-surface-container-lowest border-b border-outline-variant/5">
+<span class="text-[0.6875rem] font-medium text-on-surface-variant uppercase tracking-[0.05em]">AĞAÇ_GÖRÜNÜMÜ</span>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">fullscreen</button>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center p-12 text-center">
+<div class="mb-8 relative">
+<div class="absolute inset-0 monolith-gradient opacity-20 blur-2xl"></div>
+<span class="material-symbols-outlined text-primary-container text-6xl relative" style="font-variation-settings: 'FILL' 0, 'wght' 200;">account_tree</span>
+</div>
+<h2 class="text-xl font-bold text-white tracking-tight mb-2">VERİ BEKLENİYOR</h2>
+<p class="text-sm text-on-surface-variant max-w-xs leading-relaxed">
+                        JSON girin, ağaç görünümünü burada görün. Yapılandırılmış verileriniz otomatik olarak burada render edilecektir.
+                    </p>
+<div class="mt-12 w-full max-w-sm space-y-4">
+<div class="h-2 w-3/4 bg-surface-container-high mx-auto opacity-20"></div>
+<div class="h-2 w-1/2 bg-surface-container-high mx-auto opacity-10"></div>
+</div>
+</div>
+<!-- Floating Bottom Toolbar for Action Alignment -->
+<div class="absolute bottom-8 right-8 flex gap-4">
+<button class="monolith-gradient text-on-primary px-6 py-3 font-bold text-xs uppercase tracking-widest flex items-center gap-2 active:opacity-80 active:scale-[0.99] transition-all">
+<span class="material-symbols-outlined">auto_fix_high</span>
+                        Biçimlendir
+                     </button>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-[#0e0e0e] flex items-center px-6 h-8 w-full border-t border-[#3b494c]/15">
+<div class="flex-1 flex items-center gap-6">
+<span class="font-['JetBrains_Mono'] text-[0.6875rem] tracking-[0.05em] text-[#adaaaa]">
+                Kısayollar: <span class="text-primary-container">CTRL+V</span> Yapıştır | <span class="text-primary-container">CTRL+S</span> Biçimlendir
+            </span>
+<div class="h-3 w-[1px] bg-outline-variant/30"></div>
+<span class="font-['JetBrains_Mono'] text-[0.6875rem] tracking-[0.05em] text-[#adaaaa]">
+                Sistem Durumu: <span class="text-green-500">ÇALIŞIYOR</span>
+</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-[0.6875rem] text-[#adaaaa] font-mono">UTF-8</span>
+<span class="text-[0.6875rem] text-[#adaaaa] font-mono">JSON</span>
+</div>
+</footer>
+</body></html>

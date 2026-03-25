@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline": "#767575",
+              "surface-bright": "#2c2c2c",
+              "primary-dim": "#00d4ec",
+              "on-tertiary": "#00645a",
+              "tertiary": "#a0fff0",
+              "on-tertiary-fixed": "#00463f",
+              "inverse-surface": "#fcf9f8",
+              "on-secondary": "#340064",
+              "secondary-dim": "#ba85fb",
+              "on-surface": "#ffffff",
+              "outline-variant": "#484847",
+              "on-secondary-fixed": "#4a0b87",
+              "secondary": "#bc87fe",
+              "surface-variant": "#262626",
+              "on-error": "#490006",
+              "error-container": "#9f0519",
+              "error": "#ff716c",
+              "secondary-container": "#5e289b",
+              "on-secondary-container": "#e1c5ff",
+              "on-primary": "#005762",
+              "tertiary-dim": "#2de7d2",
+              "surface-dim": "#0e0e0e",
+              "surface-container-high": "#20201f",
+              "surface": "#0e0e0e",
+              "surface-container-lowest": "#000000",
+              "surface-container-low": "#131313",
+              "on-primary-fixed": "#003840",
+              "error-dim": "#d7383b",
+              "tertiary-fixed": "#4af8e3",
+              "surface-tint": "#81ecff",
+              "tertiary-fixed-dim": "#33e9d5",
+              "on-primary-container": "#004d57",
+              "inverse-on-surface": "#565555",
+              "primary": "#81ecff",
+              "surface-container": "#1a1a1a",
+              "on-tertiary-fixed-variant": "#00655b",
+              "on-secondary-fixed-variant": "#6834a6",
+              "on-surface-variant": "#adaaaa",
+              "secondary-fixed-dim": "#d7b5ff",
+              "primary-container": "#00e3fd",
+              "on-background": "#ffffff",
+              "background": "#0e0e0e",
+              "primary-fixed": "#00e3fd",
+              "on-tertiary-container": "#005b51",
+              "tertiary-container": "#4af8e3",
+              "on-error-container": "#ffa8a3",
+              "secondary-fixed": "#e2c7ff",
+              "on-primary-fixed-variant": "#005762",
+              "inverse-primary": "#006976",
+              "surface-container-highest": "#262626",
+              "primary-fixed-dim": "#00d4ec"
+            },
+            fontFamily: {
+              "headline": ["JetBrains Mono"],
+              "body": ["JetBrains Mono"],
+              "label": ["JetBrains Mono"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'JetBrains Mono', monospace; background-color: #0e0e0e; color: #ffffff; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .editor-gutter { background: linear-gradient(to right, #131313 95%, #1a1a1a 100%); }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary selection:text-on-primary overflow-hidden h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-[#0e0e0e] flex justify-between items-center w-full px-6 py-4 fixed top-0 z-50">
+<div class="flex items-center gap-4">
+<span class="text-[#81ecff] font-black tracking-[-0.02em] font-['JetBrains_Mono'] tracking-tighter uppercase font-bold text-4xl">FORMATTER</span>
+<div class="h-6 w-[2px] bg-outline-variant opacity-30 mx-2"></div>
+<span class="text-on-surface-variant font-medium text-sm tracking-widest">v1.0.4 // STABLE</span>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-[#adaaaa] hover:text-[#81ecff] hover:bg-[#262626] transition-colors p-2 scale-95 duration-75 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="text-[#adaaaa] hover:text-[#81ecff] hover:bg-[#262626] transition-colors p-2 scale-95 duration-75 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="text-[#adaaaa] hover:text-[#81ecff] hover:bg-[#262626] transition-colors p-2 scale-95 duration-75 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full flex flex-col pt-24 bg-[#131313] w-64 z-40 hidden md:flex">
+<div class="px-6 mb-8">
+<h2 class="text-[#81ecff] font-bold font-['JetBrains_Mono'] text-sm uppercase font-medium">TOOLS</h2>
+<p class="text-[10px] text-on-surface-variant tracking-widest">V1.0.4</p>
+</div>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-4 px-6 py-3 bg-[#262626] text-[#81ecff] border-l-4 border-[#81ecff] font-['JetBrains_Mono'] text-sm uppercase font-medium translate-x-1 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="code">code</span>
+<span>Editor</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#adaaaa] hover:text-[#81ecff] hover:bg-[#20201f] transition-all font-['JetBrains_Mono'] text-sm uppercase font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="compress">compress</span>
+<span>Minify</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#adaaaa] hover:text-[#81ecff] hover:bg-[#20201f] transition-all font-['JetBrains_Mono'] text-sm uppercase font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="difference">difference</span>
+<span>Compare</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#adaaaa] hover:text-[#81ecff] hover:bg-[#20201f] transition-all font-['JetBrains_Mono'] text-sm uppercase font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span>History</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#adaaaa] hover:text-[#81ecff] hover:bg-[#20201f] transition-all font-['JetBrains_Mono'] text-sm uppercase font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area: Split Pane -->
+<main class="flex-grow pt-24 pb-12 md:pl-64 flex overflow-hidden">
+<!-- Left Pane: Editor (Input) -->
+<section class="flex-1 bg-surface flex flex-col relative group">
+<!-- Toolbar for Editor -->
+<div class="h-10 px-4 bg-surface-container-low flex items-center justify-between border-b border-outline-variant/10">
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">input.json</span>
+<div class="flex gap-4">
+<button class="text-[10px] text-primary uppercase font-bold hover:underline">Dosya Yükle</button>
+<button class="text-[10px] text-on-surface-variant uppercase font-bold">Temizle</button>
+</div>
+</div>
+<div class="flex-grow flex">
+<!-- Gutter -->
+<div class="w-12 editor-gutter flex flex-col items-center pt-4 text-on-surface-variant/30 text-[12px] select-none">
+<span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+</div>
+<!-- Empty State Content -->
+<div class="flex-grow flex flex-col items-center justify-center p-12 transition-all duration-300 bg-surface-container-low group-focus-within:bg-surface-container-highest">
+<div class="w-16 h-16 rounded-full border border-dashed border-outline-variant flex items-center justify-center mb-6 opacity-40 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="upload_file">upload_file</span>
+</div>
+<p class="text-on-surface-variant text-center max-w-xs leading-relaxed font-medium">
+                        JSON yapıştırın, sürükleyin veya dosya seçin
+                    </p>
+<button class="mt-8 px-6 py-2 bg-gradient-to-r from-primary to-primary-dim text-on-primary font-bold text-xs uppercase tracking-tighter rounded-sm hover:shadow-[0_0_20px_rgba(129,236,255,0.3)] transition-all active:scale-95">
+                        BIÇIMLENDIR
+                    </button>
+</div>
+</div>
+</section>
+<!-- Divider Line (Visual Separation) -->
+<div class="w-[1px] bg-outline-variant opacity-10 h-full"></div>
+<!-- Right Pane: Tree View (Output) -->
+<section class="flex-1 bg-surface-container-high flex flex-col">
+<!-- Toolbar for Tree View -->
+<div class="h-10 px-4 bg-surface-container flex items-center justify-between border-b border-outline-variant/10">
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">tree_view.json</span>
+<div class="flex gap-4">
+<button class="text-[10px] text-secondary uppercase font-bold hover:underline">Kopyala</button>
+<button class="text-[10px] text-on-surface-variant uppercase font-bold">Genişlet</button>
+</div>
+</div>
+<!-- Empty State Content -->
+<div class="flex-grow flex flex-col items-center justify-center p-12 bg-surface-container-high">
+<div class="mb-6 opacity-20">
+<span class="material-symbols-outlined text-7xl text-secondary" data-icon="account_tree">account_tree</span>
+</div>
+<p class="text-on-surface-variant text-center max-w-sm leading-relaxed text-sm">
+                    JSON girin, yapılandırılmış ağaç görünümünü burada keşfedin
+                </p>
+<div class="mt-8 grid grid-cols-2 gap-2 opacity-30">
+<div class="h-1 w-24 bg-outline-variant rounded-full"></div>
+<div class="h-1 w-12 bg-outline-variant rounded-full"></div>
+<div class="h-1 w-16 bg-outline-variant rounded-full col-start-2"></div>
+<div class="h-1 w-20 bg-outline-variant rounded-full"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer: Keyboard Shortcuts & Status -->
+<footer class="fixed bottom-0 w-full flex justify-between px-6 py-2 z-50 bg-[#131313] text-[#a0fff0] font-['JetBrains_Mono'] text-[10px] uppercase tracking-widest border-t border-outline-variant/5">
+<div class="flex items-center gap-8">
+<span class="text-[#81ecff] font-bold">STATUS: READY</span>
+<span class="text-on-surface-variant/60">ENCODING: UTF-8</span>
+<span class="text-on-surface-variant/60">SIZE: 0KB</span>
+</div>
+<!-- Keyboard Shortcuts Bar -->
+<div class="flex items-center gap-6 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<kbd class="bg-surface-variant px-1.5 py-0.5 rounded text-primary border border-outline-variant/20">CTRL+V</kbd>
+<span>Paste</span>
+</div>
+<div class="flex items-center gap-2">
+<kbd class="bg-surface-variant px-1.5 py-0.5 rounded text-primary border border-outline-variant/20">CTRL+S</kbd>
+<span>Format</span>
+</div>
+<div class="flex items-center gap-2">
+<kbd class="bg-surface-variant px-1.5 py-0.5 rounded text-primary border border-outline-variant/20">ESC</kbd>
+<span>Clear</span>
+</div>
+<div class="h-3 w-[1px] bg-outline-variant opacity-30"></div>
+<div class="flex gap-4">
+<a class="hover:text-white transition-colors" href="#">Documentation</a>
+<a class="hover:text-white transition-colors" href="#">API</a>
+<a class="hover:text-white transition-colors" href="#">Privacy</a>
+</div>
+</div>
+</footer>
+<!-- Overlay Decoration (Asymmetric Detail) -->
+<div class="fixed top-24 right-8 pointer-events-none opacity-[0.03] select-none">
+<pre class="text-[120px] leading-none font-black text-primary">{
+  "status": 200,
+  "data": []
+}
+        </pre>
+</div>
+</body></html>

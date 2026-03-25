@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #0e0e0e;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(20px);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-dim": "#ba85fb",
+                        "on-secondary-fixed": "#4a0b87",
+                        "on-error-container": "#ffa8a3",
+                        "on-secondary-container": "#e1c5ff",
+                        "surface-variant": "#262626",
+                        "surface-container-high": "#20201f",
+                        "inverse-primary": "#006976",
+                        "error-container": "#9f0519",
+                        "background": "#0e0e0e",
+                        "on-error": "#490006",
+                        "surface-container-low": "#131313",
+                        "on-tertiary": "#00645a",
+                        "tertiary-dim": "#2de7d2",
+                        "secondary-fixed-dim": "#d7b5ff",
+                        "on-primary-container": "#004d57",
+                        "primary-fixed": "#00e3fd",
+                        "secondary-container": "#5e289b",
+                        "primary": "#81ecff",
+                        "surface-tint": "#81ecff",
+                        "tertiary": "#a0fff0",
+                        "error": "#ff716c",
+                        "surface-container-highest": "#262626",
+                        "on-surface-variant": "#adaaaa",
+                        "inverse-surface": "#fcf9f8",
+                        "surface-container-lowest": "#000000",
+                        "tertiary-fixed": "#4af8e3",
+                        "tertiary-container": "#4af8e3",
+                        "tertiary-fixed-dim": "#33e9d5",
+                        "error-dim": "#d7383b",
+                        "primary-container": "#00e3fd",
+                        "on-primary-fixed-variant": "#005762",
+                        "on-secondary-fixed-variant": "#6834a6",
+                        "surface-container": "#1a1a1a",
+                        "primary-dim": "#00d4ec",
+                        "outline": "#767575",
+                        "on-background": "#ffffff",
+                        "on-tertiary-container": "#005b51",
+                        "on-secondary": "#340064",
+                        "secondary": "#bc87fe",
+                        "on-primary-fixed": "#003840",
+                        "on-tertiary-fixed": "#00463f",
+                        "secondary-fixed": "#e2c7ff",
+                        "surface-bright": "#2c2c2c",
+                        "on-surface": "#ffffff",
+                        "inverse-on-surface": "#565555",
+                        "outline-variant": "#484847",
+                        "surface": "#0e0e0e",
+                        "primary-fixed-dim": "#00d4ec",
+                        "on-tertiary-fixed-variant": "#00655b",
+                        "on-primary": "#005762",
+                        "surface-dim": "#0e0e0e"
+                    },
+                    fontFamily: {
+                        "headline": ["JetBrains Mono"],
+                        "body": ["JetBrains Mono"],
+                        "label": ["JetBrains Mono"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation Shell -->
+<nav class="flex justify-between items-center w-full px-10 py-6 bg-[#0e0e0e] fixed top-0 z-40">
+<div class="text-3xl font-black tracking-tighter text-[#81ecff]">FORMATTER</div>
+<div class="flex gap-8 items-center">
+<div class="flex gap-6 font-mono uppercase tracking-tighter text-sm">
+<a class="text-[#81ecff] border-b-2 border-[#81ecff] pb-1" href="#">EDITOR</a>
+<a class="text-[#adaaaa] hover:text-[#81ecff] transition-colors duration-200" href="#">HISTORY</a>
+<a class="text-[#adaaaa] hover:text-[#81ecff] transition-colors duration-200" href="#">DOCS</a>
+</div>
+<div class="flex gap-4">
+<button class="bg-[#20201f] text-[#bc87fe] font-mono uppercase tracking-tighter text-sm px-4 py-2 hover:bg-[#262626] transition-all">MINIFY</button>
+<button class="bg-primary text-on-primary font-mono uppercase tracking-tighter text-sm px-6 py-2 font-bold hover:opacity-90 transition-all">FORMAT</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas (Editor Background) -->
+<main class="pt-24 pb-16 h-screen flex overflow-hidden">
+<!-- Input Panel -->
+<section class="flex-1 bg-surface-container-low p-10 flex flex-col border-r border-outline-variant/10">
+<div class="mb-4 flex justify-between items-center">
+<span class="text-[10px] tracking-widest text-on-surface-variant uppercase">INPUT_STREAM</span>
+<span class="text-[10px] tracking-widest text-on-surface-variant uppercase">SIZE: 1.2KB</span>
+</div>
+<div class="flex-1 text-primary-dim opacity-50 overflow-hidden leading-relaxed">
+<pre><code>{
+  "project": "MONOLITHIC_LOGIC",
+  "version": "2.0.4",
+  "status": "ACTIVE",
+  "dependencies": {
+    "core": "system_v3",
+    "ui": "monolith_v1",
+    "parser": "logic_engine"
+  },
+  "config": [
+    { "id": 101, "key": "debug", "val": true },
+    { "id": 102, "key": "trace", "val": false }
+  ]
+}</code></pre>
+</div>
+</section>
+<!-- Output Panel -->
+<section class="flex-1 bg-surface-container-high p-10 flex flex-col">
+<div class="mb-4 flex justify-between items-center">
+<span class="text-[10px] tracking-widest text-on-surface-variant uppercase">PARSED_OUTPUT</span>
+<div class="flex gap-4">
+<span class="text-[10px] tracking-widest text-tertiary uppercase">VALID JSON</span>
+</div>
+</div>
+<div class="flex-1 text-secondary opacity-40 overflow-hidden leading-relaxed">
+<pre><code>{
+    "project": "MONOLITHIC_LOGIC",
+    "version": "2.0.4",
+    "status": "ACTIVE",
+    "dependencies": {
+        "core": "system_v3",
+        "ui": "monolith_v1",
+        "parser": "logic_engine"
+    },
+    "config": [
+        {
+            "id": 101,
+            "key": "debug",
+            "val": true
+        },
+        {
+            "id": 102,
+            "key": "trace",
+            "val": false
+        }
+    ]
+}</code></pre>
+</div>
+</section>
+</main>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
+<!-- Keyboard Shortcuts Modal -->
+<div class="glass-panel w-full max-w-2xl border border-outline-variant/15 shadow-2xl relative overflow-hidden">
+<!-- Modal Header -->
+<div class="flex justify-between items-center px-8 py-6 border-b border-outline-variant/10">
+<h2 class="text-2xl font-black tracking-tighter text-primary uppercase">Klavye Kısayolları</h2>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-3xl">close</span>
+</button>
+</div>
+<!-- Modal Content (Table Style) -->
+<div class="p-8">
+<div class="space-y-1">
+<!-- Row 1 -->
+<div class="group flex justify-between items-center py-4 px-4 hover:bg-surface-container-highest transition-colors">
+<span class="text-on-surface-variant text-sm tracking-widest uppercase">Biçimlendir</span>
+<div class="flex gap-2">
+<kbd class="px-2 py-1 bg-surface-variant text-primary border border-outline-variant/20 text-xs font-bold">CTRL</kbd>
+<span class="text-outline-variant">+</span>
+<kbd class="px-2 py-1 bg-surface-variant text-primary border border-outline-variant/20 text-xs font-bold">ENTER</kbd>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="group flex justify-between items-center py-4 px-4 hover:bg-surface-container-highest transition-colors">
+<span class="text-on-surface-variant text-sm tracking-widest uppercase">Küçült</span>
+<div class="flex gap-2">
+<kbd class="px-2 py-1 bg-surface-variant text-primary border border-outline-variant/20 text-xs font-bold">CTRL</kbd>
+<span class="text-outline-variant">+</span>
+<kbd class="px-2 py-1 bg-surface-variant text-primary border border-outline-variant/20 text-xs font-bold">SHIFT</kbd>
+<span class="text-outline-variant">+</span>
+<kbd class="px-2 py-1 bg-surface-variant text-primary border border-outline-variant/20 text-xs font-bold">M</kbd>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="group flex justify-between items-center py-4 px-4 hover:bg-surface-container-highest transition-colors">
+<span class="text-on-surface-variant text-sm tracking-widest uppercase">Kopyala</span>
+<div class="flex gap-2">
+<kbd class="px-2 py-1 bg-surface-variant text-primary border border-outline-variant/20 text-xs font-bold">CTRL</kbd>
+<span class="text-outline-variant">+</span>
+<kbd class="px-2 py-1 bg-surface-variant text-primary border border-outline-variant/20 text-xs font-bold">SHIFT</kbd>
+<span class="text-outline-variant">+</span>
+<kbd class="px-2 py-1 bg-surface-variant text-primary border border-outline-variant/20 text-xs font-bold">C</kbd>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="group flex justify-between items-center py-4 px-4 hover:bg-surface-container-highest transition-colors">
+<span class="text-on-surface-variant text-sm tracking-widest uppercase">Temizle</span>
+<div class="flex gap-2">
+<kbd class="px-2 py-1 bg-surface-variant text-primary border border-outline-variant/20 text-xs font-bold">CTRL</kbd>
+<span class="text-outline-variant">+</span>
+<kbd class="px-2 py-1 bg-surface-variant text-primary border border-outline-variant/20 text-xs font-bold">L</kbd>
+</div>
+</div>
+<!-- Row 5 -->
+<div class="group flex justify-between items-center py-4 px-4 hover:bg-surface-container-highest transition-colors">
+<span class="text-on-surface-variant text-sm tracking-widest uppercase">Bu pencere</span>
+<div class="flex gap-2">
+<kbd class="px-3 py-1 bg-surface-variant text-primary border border-outline-variant/20 text-xs font-bold">?</kbd>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Accents -->
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-tertiary opacity-50"></div>
+</div>
+</div>
+<!-- Footer Shell -->
+<footer class="fixed bottom-0 w-full px-10 py-4 bg-[#0e0e0e] flex justify-between items-center border-t border-[#484847]/15 z-40">
+<div class="text-[#adaaaa] font-mono text-[10px] tracking-widest uppercase">© 2024 MONOLITHIC LOGIC</div>
+<div class="flex gap-10 font-mono text-[10px] tracking-widest uppercase">
+<a class="text-[#adaaaa] hover:text-[#81ecff] transition-opacity" href="#">PRIVACY</a>
+<a class="text-[#adaaaa] hover:text-[#81ecff] transition-opacity" href="#">TERMINAL_ACCESS</a>
+<a class="text-[#adaaaa] hover:text-[#81ecff] transition-opacity" href="#">API</a>
+</div>
+</footer>
+</body></html>
