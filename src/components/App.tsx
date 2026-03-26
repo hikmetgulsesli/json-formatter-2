@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect, ChangeEvent } from 'react';
 import { parseJson, formatJson, minifyJson, ValidationResult } from '../utils/jsonValidator';
 import { KeyboardShortcutsModal } from './KeyboardShortcutsModal';
 
@@ -52,7 +52,7 @@ export function App() {
   }, []);
 
   // Handle input change - wired to validation
-  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleInputChange = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setInput(value);
     debouncedValidate(value);
@@ -62,17 +62,15 @@ export function App() {
   const handleFormat = useCallback(() => {
     if (!input.trim()) return;
 
-    try {
-      const formatted = formatJson(input);
-      // Update input textarea with formatted content
+    const result = parseJson(input);
+    setValidation(result);
+
+    if (result.valid) {
+      const formatted = JSON.stringify(result.data, null, 2);
       setInput(formatted);
-      // Update tree view
       setFormattedOutput(formatted);
       setStatus('valid');
-      setValidation({ valid: true, data: JSON.parse(formatted) });
-    } catch {
-      const result = parseJson(input);
-      setValidation(result);
+    } else {
       setStatus('invalid');
       setFormattedOutput('');
     }
@@ -82,17 +80,15 @@ export function App() {
   const handleMinify = useCallback(() => {
     if (!input.trim()) return;
 
-    try {
-      const minified = minifyJson(input);
-      // Update input textarea with minified content
+    const result = parseJson(input);
+    setValidation(result);
+
+    if (result.valid) {
+      const minified = JSON.stringify(result.data);
       setInput(minified);
-      // Update tree view with minified content
       setFormattedOutput(minified);
       setStatus('valid');
-      setValidation({ valid: true, data: JSON.parse(minified) });
-    } catch {
-      const result = parseJson(input);
-      setValidation(result);
+    } else {
       setStatus('invalid');
       setFormattedOutput('');
     }
@@ -101,15 +97,20 @@ export function App() {
   // Copy action
   const handleCopy = useCallback(() => {
     if (!formattedOutput) return;
-    navigator.clipboard.writeText(formattedOutput).then(() => {
-      setShowCopyToast(true);
-      if (toastTimeoutRef.current) {
-        clearTimeout(toastTimeoutRef.current);
-      }
-      toastTimeoutRef.current = setTimeout(() => {
-        setShowCopyToast(false);
-      }, 2000);
-    });
+    navigator.clipboard
+      .writeText(formattedOutput)
+      .then(() => {
+        setShowCopyToast(true);
+        if (toastTimeoutRef.current) {
+          clearTimeout(toastTimeoutRef.current);
+        }
+        toastTimeoutRef.current = setTimeout(() => {
+          setShowCopyToast(false);
+        }, 2000);
+      })
+      .catch((error) => {
+        console.error('Failed to copy to clipboard:', error);
+      });
   }, [formattedOutput]);
 
   // Clear action - resets all state atomically

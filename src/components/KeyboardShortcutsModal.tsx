@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface KeyboardShortcutsModalProps {
   isOpen: boolean;
@@ -56,17 +56,27 @@ export function KeyboardShortcutsModal({ isOpen, onClose }: KeyboardShortcutsMod
       data-testid="keyboard-shortcuts-modal"
     >
       {/* Modal Container */}
-      <div className="w-full max-w-2xl border border-[#484847]/15 shadow-2xl relative overflow-hidden"
-           style={{ background: 'rgba(26, 26, 26, 0.7)', backdropFilter: 'blur(20px)' }}>
+      <div
+        className="w-full max-w-2xl border border-[#484847]/15 shadow-2xl relative overflow-hidden"
+        style={{ background: 'rgba(26, 26, 26, 0.7)', backdropFilter: 'blur(20px)' }}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="keyboard-shortcuts-modal-title"
+      >
         {/* Modal Header */}
         <div className="flex justify-between items-center px-8 py-6 border-b border-[#484847]/10">
-          <h2 className="text-2xl font-black tracking-tighter text-[#81ecff] uppercase">
+          <h2
+            id="keyboard-shortcuts-modal-title"
+            className="text-2xl font-black tracking-tighter text-[#81ecff] uppercase"
+          >
             Klavye Kısayolları
           </h2>
           <button
             onClick={onClose}
+            type="button"
             className="text-[#adaaaa] hover:text-[#81ecff] transition-colors"
             data-testid="close-modal-btn"
+            aria-label="Kapat"
           >
             <span className="material-symbols-outlined text-3xl">close</span>
           </button>
