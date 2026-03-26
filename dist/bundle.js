@@ -21724,52 +21724,76 @@ var import_client = __toESM(require_client(), 1);
 var import_react = __toESM(require_react(), 1);
 
 // src/utils/jsonValidator.ts
+function parseErrorPosition(errorMessage, input) {
+  const v8Match = errorMessage.match(/at position (\d+)/);
+  if (v8Match) {
+    const position2 = parseInt(v8Match[1], 10);
+    return calculateLineColumn(input, position2);
+  }
+  const ffMatch = errorMessage.match(/line (\d+) column (\d+)/);
+  if (ffMatch) {
+    const line = parseInt(ffMatch[1], 10);
+    const column = parseInt(ffMatch[2], 10);
+    const position2 = calculatePosition(input, line, column);
+    return { line, column, position: position2 };
+  }
+  const position = estimateErrorPosition(input);
+  return calculateLineColumn(input, position);
+}
+function calculatePosition(input, line, column) {
+  let currentLine = 1;
+  let pos = 0;
+  while (pos < input.length && currentLine < line) {
+    if (input[pos] === "\n") {
+      currentLine++;
+    }
+    pos++;
+  }
+  return pos + column - 1;
+}
+function calculateLineColumn(input, position) {
+  const clampedPos = Math.min(position, input.length);
+  const beforeError = input.slice(0, clampedPos);
+  const lines = beforeError.split("\n");
+  const line = lines.length;
+  const column = lines[lines.length - 1].length + 1;
+  return { line, column, position: clampedPos };
+}
+function estimateErrorPosition(input) {
+  const newlines = input.split("\n");
+  if (newlines.length > 1) {
+    return input.length - newlines[newlines.length - 1].length;
+  }
+  return Math.floor(input.length / 2);
+}
 function parseJson(input) {
-  if (!input.trim()) {
-    return { valid: false, error: { message: "Bo\u015F girdi" } };
+  if (!input || input.trim() === "") {
+    return {
+      valid: false,
+      error: {
+        message: "Bo\u015F girdi",
+        line: 0,
+        column: 0,
+        position: 0
+      }
+    };
   }
   try {
     const data = JSON.parse(input);
     return { valid: true, data };
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : String(e);
-    const position = extractErrorPosition(errorMessage);
+    const { line, column, position } = parseErrorPosition(errorMessage, input);
     return {
       valid: false,
       error: {
         message: errorMessage,
-        line: position.line,
-        column: position.column
+        line,
+        column,
+        position
       }
     };
   }
-}
-function extractErrorPosition(errorMessage) {
-  const positionMatch = errorMessage.match(/at position (\d+)/);
-  if (positionMatch) {
-    const position = parseInt(positionMatch[1], 10);
-    const lines = errorMessage.split("\n");
-    let charCount = 0;
-    for (let i = 0; i < lines.length; i++) {
-      if (charCount + lines[i].length >= position) {
-        return { line: i + 1, column: position - charCount + 1 };
-      }
-      charCount += lines[i].length + 1;
-    }
-    return { line: 1, column: position };
-  }
-  const lineColMatch = errorMessage.match(/line (\d+) column (\d+)/i);
-  if (lineColMatch) {
-    return {
-      line: parseInt(lineColMatch[1], 10),
-      column: parseInt(lineColMatch[2], 10)
-    };
-  }
-  const lineMatch = errorMessage.match(/line (\d+)/i);
-  if (lineMatch) {
-    return { line: parseInt(lineMatch[1], 10) };
-  }
-  return {};
 }
 
 // src/components/EmptyState.tsx
