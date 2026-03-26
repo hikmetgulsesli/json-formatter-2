@@ -21733,7 +21733,7 @@ function parseJson(input) {
     return { valid: true, data };
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : String(e);
-    const position = extractErrorPosition(errorMessage, input);
+    const position = extractErrorPosition(errorMessage);
     return {
       valid: false,
       error: {
@@ -21744,25 +21744,19 @@ function parseJson(input) {
     };
   }
 }
-function formatJson(input) {
-  const result = parseJson(input);
-  if (!result.valid) {
-    throw new Error(result.error?.message || "Ge\xE7ersiz JSON");
-  }
-  return JSON.stringify(result.data, null, 2);
-}
-function minifyJson(input) {
-  const result = parseJson(input);
-  if (!result.valid) {
-    throw new Error(result.error?.message || "Ge\xE7ersiz JSON");
-  }
-  return JSON.stringify(result.data);
-}
-function extractErrorPosition(errorMessage, input) {
-  const positionMatch = errorMessage.match(/position (\d+)/i);
+function extractErrorPosition(errorMessage) {
+  const positionMatch = errorMessage.match(/at position (\d+)/);
   if (positionMatch) {
     const position = parseInt(positionMatch[1], 10);
-    return getLineColumnFromPosition(input, position);
+    const lines = errorMessage.split("\n");
+    let charCount = 0;
+    for (let i = 0; i < lines.length; i++) {
+      if (charCount + lines[i].length >= position) {
+        return { line: i + 1, column: position - charCount + 1 };
+      }
+      charCount += lines[i].length + 1;
+    }
+    return { line: 1, column: position };
   }
   const lineColMatch = errorMessage.match(/line (\d+) column (\d+)/i);
   if (lineColMatch) {
@@ -21771,19 +21765,11 @@ function extractErrorPosition(errorMessage, input) {
       column: parseInt(lineColMatch[2], 10)
     };
   }
-  return {};
-}
-function getLineColumnFromPosition(input, position) {
-  const lines = input.split("\n");
-  let charCount = 0;
-  for (let i = 0; i < lines.length; i++) {
-    const lineLength = lines[i].length + 1;
-    if (charCount + lineLength > position) {
-      return { line: i + 1, column: position - charCount + 1 };
-    }
-    charCount += lineLength;
+  const lineMatch = errorMessage.match(/line (\d+)/i);
+  if (lineMatch) {
+    return { line: parseInt(lineMatch[1], 10) };
   }
-  return { line: lines.length, column: 1 };
+  return {};
 }
 
 // src/components/App.tsx
@@ -21796,76 +21782,35 @@ function App() {
   const [showCopyToast, setShowCopyToast] = (0, import_react.useState)(false);
   const textareaRef = (0, import_react.useRef)(null);
   const toastTimeoutRef = (0, import_react.useRef)(null);
-  const debounceTimeoutRef = (0, import_react.useRef)(null);
-  const debouncedValidate = (0, import_react.useCallback)((value) => {
-    if (debounceTimeoutRef.current) {
-      clearTimeout(debounceTimeoutRef.current);
-    }
-    if (!value.trim()) {
-      setStatus("ready");
-      setValidation(null);
-      setFormattedOutput("");
-      return;
-    }
-    debounceTimeoutRef.current = setTimeout(() => {
-      const result = parseJson(value);
-      setValidation(result);
-      if (result.valid) {
-        setStatus("valid");
-        const formatted = JSON.stringify(result.data, null, 2);
-        setFormattedOutput(formatted);
-      } else {
-        setStatus("invalid");
-        setFormattedOutput("");
-      }
-    }, 300);
+  const updateStatus = (0, import_react.useCallback)((newStatus) => {
+    setStatus(newStatus);
   }, []);
-  const handleInputChange = (0, import_react.useCallback)((e) => {
-    const value = e.target.value;
-    setInput(value);
-    setStatus("ready");
-    setValidation(null);
-    setFormattedOutput("");
-    debouncedValidate(value);
-  }, [debouncedValidate]);
   const handleFormat = (0, import_react.useCallback)(() => {
     if (!input.trim()) return;
-    if (debounceTimeoutRef.current) {
-      clearTimeout(debounceTimeoutRef.current);
-      debounceTimeoutRef.current = null;
-    }
-    try {
-      const formatted = formatJson(input);
-      setInput(formatted);
+    const result = parseJson(input);
+    setValidation(result);
+    if (result.valid) {
+      const formatted = JSON.stringify(result.data, null, 2);
       setFormattedOutput(formatted);
-      setStatus("valid");
-      setValidation({ valid: true, data: JSON.parse(formatted) });
-    } catch {
-      const result = parseJson(input);
-      setValidation(result);
-      setStatus("invalid");
+      updateStatus("valid");
+    } else {
       setFormattedOutput("");
+      updateStatus("invalid");
     }
-  }, [input]);
+  }, [input, updateStatus]);
   const handleMinify = (0, import_react.useCallback)(() => {
     if (!input.trim()) return;
-    if (debounceTimeoutRef.current) {
-      clearTimeout(debounceTimeoutRef.current);
-      debounceTimeoutRef.current = null;
-    }
-    try {
-      const minified = minifyJson(input);
-      setInput(minified);
+    const result = parseJson(input);
+    setValidation(result);
+    if (result.valid) {
+      const minified = JSON.stringify(result.data);
       setFormattedOutput(minified);
-      setStatus("valid");
-      setValidation({ valid: true, data: JSON.parse(minified) });
-    } catch {
-      const result = parseJson(input);
-      setValidation(result);
-      setStatus("invalid");
+      updateStatus("valid");
+    } else {
       setFormattedOutput("");
+      updateStatus("invalid");
     }
-  }, [input]);
+  }, [input, updateStatus]);
   const handleCopy = (0, import_react.useCallback)(() => {
     if (!formattedOutput) return;
     navigator.clipboard.writeText(formattedOutput).then(() => {
@@ -21883,15 +21828,6 @@ function App() {
     setFormattedOutput("");
     setValidation(null);
     setStatus("ready");
-    if (debounceTimeoutRef.current) {
-      clearTimeout(debounceTimeoutRef.current);
-      debounceTimeoutRef.current = null;
-    }
-    if (toastTimeoutRef.current) {
-      clearTimeout(toastTimeoutRef.current);
-      toastTimeoutRef.current = null;
-    }
-    setShowCopyToast(false);
     textareaRef.current?.focus();
   }, []);
   (0, import_react.useEffect)(() => {
@@ -21900,17 +21836,17 @@ function App() {
         e.preventDefault();
         handleFormat();
       }
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "m") {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "m") {
         e.preventDefault();
         handleMinify();
       }
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "c") {
-        if (document.activeElement !== textareaRef.current && formattedOutput) {
+      if ((e.ctrlKey || e.metaKey) && e.key === "c" && formattedOutput) {
+        if (document.activeElement !== textareaRef.current) {
           e.preventDefault();
           handleCopy();
         }
       }
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "l") {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "x") {
         e.preventDefault();
         handleClear();
       }
@@ -21920,11 +21856,12 @@ function App() {
   }, [handleFormat, handleMinify, handleCopy, handleClear, formattedOutput]);
   (0, import_react.useEffect)(() => {
     return () => {
-      if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
-      if (debounceTimeoutRef.current) clearTimeout(debounceTimeoutRef.current);
+      if (toastTimeoutRef.current) {
+        clearTimeout(toastTimeoutRef.current);
+      }
     };
   }, []);
-  const hasError = status === "invalid";
+  const isEmpty = !input.trim();
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "h-screen flex flex-col bg-[#0e0e0e] text-[#ffffff] overflow-hidden", children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", { className: "flex justify-between items-center w-full px-8 py-6 bg-[#131313] border-b border-[#484847]/15", children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center gap-8", children: [
@@ -21965,7 +21902,6 @@ function App() {
               {
                 onClick: handleFormat,
                 className: "text-[10px] text-[#81ecff] uppercase font-bold hover:underline cursor-pointer flex items-center gap-1",
-                "data-testid": "format-btn",
                 children: [
                   /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "material-symbols-outlined text-sm", children: "auto_fix_high" }),
                   "Bi\xE7imlendir"
@@ -21977,36 +21913,36 @@ function App() {
               {
                 onClick: handleClear,
                 className: "text-[10px] text-[#adaaaa] uppercase font-bold hover:underline cursor-pointer",
-                "data-testid": "clear-btn",
                 children: "Temizle"
               }
             )
           ] })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex-1 flex font-mono text-sm relative", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-12 bg-[#000000] text-[#767575]/40 py-4 flex flex-col items-center select-none text-[12px] shrink-0", children: input.split("\n").map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: hasError && validation?.error?.line === i + 1 ? "text-[#ff716c]" : "", children: String(i + 1).padStart(2, "0") }, i)) }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "w-12 bg-[#000000] text-[#767575]/40 py-4 flex flex-col items-center select-none text-[12px]", children: [
+            input.split("\n").map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: String(i + 1).padStart(2, "0") }, i)),
+            input === "" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "01" })
+          ] }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
             "textarea",
             {
               ref: textareaRef,
               value: input,
-              onChange: handleInputChange,
-              className: `flex-1 p-4 bg-[#131313] font-medium overflow-auto resize-none outline-none ${hasError ? "text-[#ff716c]" : "text-[#adaaaa]"}`,
-              placeholder: "JSON yap\u0131\u015Ft\u0131r\u0131n veya s\xFCr\xFCkleyip b\u0131rak\u0131n",
-              "data-testid": "json-input"
+              onChange: (e) => {
+                setInput(e.target.value);
+                if (!e.target.value.trim()) {
+                  setStatus("ready");
+                  setFormattedOutput("");
+                  setValidation(null);
+                }
+              },
+              className: "flex-1 p-4 bg-[#131313] text-[#adaaaa] font-medium overflow-auto resize-none outline-none",
+              placeholder: "JSON yap\u0131\u015Ft\u0131r\u0131n veya s\xFCr\xFCkleyip b\u0131rak\u0131n"
             }
           )
-        ] }),
-        hasError && validation?.error && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "px-4 py-3 bg-[#ff716c]/10 border-t border-[#ff716c]/20 flex items-center gap-3", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "material-symbols-outlined text-[#ff716c] text-sm", children: "warning" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { className: "text-[#ff716c] text-sm font-mono", children: [
-            "Ge\xE7ersiz JSON: ",
-            validation.error.message,
-            validation.error.line && ` (Sat\u0131r ${validation.error.line}${validation.error.column ? `, S\xFCtun ${validation.error.column}` : ""})`
-          ] })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", { className: `flex-1 bg-[#20201f] flex flex-col relative overflow-hidden ${hasError ? "opacity-50 pointer-events-none" : ""}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", { className: "flex-1 bg-[#20201f] flex flex-col relative overflow-hidden", children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "h-10 px-4 bg-[#1a1a1a] flex items-center justify-between border-b border-[#484847]/15", children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-[10px] uppercase tracking-widest text-[#adaaaa] font-bold", children: "tree_view.json" }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex gap-4", children: [
@@ -22014,9 +21950,7 @@ function App() {
               "button",
               {
                 onClick: handleCopy,
-                disabled: !formattedOutput,
-                className: `text-[10px] uppercase font-bold flex items-center gap-1 ${formattedOutput ? "text-[#bc87fe] hover:underline cursor-pointer" : "text-[#484847] cursor-not-allowed"}`,
-                "data-testid": "copy-btn",
+                className: "text-[10px] text-[#bc87fe] uppercase font-bold hover:underline cursor-pointer flex items-center gap-1",
                 children: [
                   /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "material-symbols-outlined text-sm", children: "content_copy" }),
                   "Kopyala"
@@ -22028,7 +21962,6 @@ function App() {
               {
                 onClick: handleMinify,
                 className: "text-[10px] text-[#adaaaa] uppercase font-bold hover:underline cursor-pointer flex items-center gap-1",
-                "data-testid": "minify-btn",
                 children: [
                   /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "material-symbols-outlined text-sm", children: "compress" }),
                   "Minify"
@@ -22037,23 +21970,20 @@ function App() {
             )
           ] })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "flex-1 overflow-auto p-6", "data-testid": "tree-view", children: formattedOutput && !hasError ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("pre", { className: "text-sm text-[#81ecff] font-mono whitespace-pre-wrap", children: formattedOutput }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex flex-col items-center justify-center h-full text-center", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "flex-1 overflow-auto p-6", children: formattedOutput ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("pre", { className: "text-sm text-[#81ecff] font-mono whitespace-pre-wrap", children: formattedOutput }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex flex-col items-center justify-center h-full text-center", children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "mb-6 opacity-20", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "material-symbols-outlined text-7xl text-[#bc87fe]", children: "account_tree" }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "text-[#adaaaa] text-center max-w-sm leading-relaxed text-sm", children: hasError ? "Hata d\xFCzeltilene kadar a\u011Fa\xE7 g\xF6r\xFCn\xFCm\xFC devre d\u0131\u015F\u0131" : "JSON girin, yap\u0131land\u0131r\u0131lm\u0131\u015F a\u011Fa\xE7 g\xF6r\xFCn\xFCm\xFCn\xFC burada ke\u015Ffedin" })
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "text-[#adaaaa] text-center max-w-sm leading-relaxed text-sm", children: "JSON girin, yap\u0131land\u0131r\u0131lm\u0131\u015F a\u011Fa\xE7 g\xF6r\xFCn\xFCm\xFCn\xFC burada ke\u015Ffedin" })
         ] }) })
       ] })
     ] }),
-    showCopyToast && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "fixed top-24 right-8 bg-[#4af8e3] text-[#005762] px-6 py-3 font-bold text-sm rounded-sm shadow-lg z-50", "data-testid": "copy-toast", children: "Kopyaland\u0131!" }),
+    showCopyToast && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "fixed top-24 right-8 bg-[#4af8e3] text-[#005762] px-6 py-3 font-bold text-sm rounded-sm shadow-lg z-50", children: "Kopyaland\u0131!" }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("footer", { className: "fixed bottom-0 w-full flex justify-between items-center px-6 py-2 bg-[#131313] border-t border-[#484847]/15 z-50", children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center gap-4", children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-[#81ecff] font-bold font-mono text-[10px]", children: "FORMATTER v1.2.4" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-[#adaaaa] font-mono text-[10px] uppercase font-medium", children: "\xA9 2024 MONOLITHIC LOGIC. ALL SYSTEMS OPERATIONAL." })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex gap-6", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { className: "text-[#adaaaa] hover:text-white transition-colors font-mono text-[10px] uppercase font-medium cursor-default", children: [
-          "STATUS: ",
-          status.toUpperCase()
-        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-[#adaaaa] hover:text-white transition-colors font-mono text-[10px] uppercase font-medium cursor-default", children: "STATUS: OK" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-[#adaaaa] hover:text-white transition-colors font-mono text-[10px] uppercase font-medium cursor-default", children: "ENCODING: UTF-8" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { className: "text-[#81ecff] font-mono text-[10px] uppercase font-medium", children: [
           input.split("\n").length,
