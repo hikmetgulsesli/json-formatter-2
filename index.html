@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>JSON FORMATTER | Professional Data Tool</title>
+<title>JSON Biçimlendirici | MONOLITH.JSON</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet"/>
@@ -54,14 +54,14 @@
   --color-surface-variant: #262626;
   --color-on-tertiary: #00645a;
   --color-on-primary-fixed-variant: #005762;
-  --font-headline: 'JetBrains Mono', monospace;
-  --font-body: 'JetBrains Mono', monospace;
-  --font-label: 'JetBrains Mono', monospace;
-  --font-mono: 'JetBrains Mono', monospace;
   --color-primary-dim: #00d4ec;
   --color-secondary-dim: #ba85fb;
   --color-tertiary-dim: #2de7d2;
   --color-error-dim: #d7383b;
+  --font-headline: 'JetBrains Mono', monospace;
+  --font-body: 'JetBrains Mono', monospace;
+  --font-label: 'JetBrains Mono', monospace;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
@@ -70,6 +70,8 @@ body {
   background: var(--color-surface-container-lowest);
   color: var(--color-on-surface);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -86,125 +88,555 @@ body {
 button { cursor: pointer; font-family: inherit; }
 textarea { font-family: inherit; }
 .hidden { display: none !important; }
+header {
+  background: var(--color-surface-dim);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 56px;
+  padding: 0 24px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(72, 72, 71, 0.15);
+}
+header .logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+header .logo .title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #00E5FF;
+  letter-spacing: -0.02em;
+}
+header .logo .badge {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  background: var(--color-surface-container-high);
+  padding: 2px 8px;
+}
+header nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+header nav button {
+  color: var(--color-on-surface-variant);
+  font-size: 0.875rem;
+  padding: 4px 12px;
+  transition: color 0.15s, background 0.15s;
+}
+header nav button:hover {
+  background: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+}
+header nav .divider {
+  height: 24px;
+  width: 1px;
+  background: rgba(72, 72, 71, 0.15);
+}
+main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+aside {
+  background: var(--color-surface-container-low);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  gap: 8px;
+  width: 80px;
+  flex-shrink: 0;
+}
+aside button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 16px 0;
+  width: 100%;
+  transition: all 0.15s;
+}
+aside button.active {
+  background: var(--color-surface-container-high);
+  color: #00E5FF;
+  border-left: 2px solid #00E5FF;
+}
+aside button:not(.active) {
+  color: var(--color-on-surface-variant);
+}
+aside button:not(.active):hover {
+  background: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+}
+aside button .material-symbols-outlined {
+  font-size: 1.25rem;
+}
+aside button span:last-child {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.main-panels {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.panel-left {
+  background: var(--color-surface-dim);
+}
+.panel-right {
+  background: var(--color-surface-dim);
+}
+.panel-header {
+  height: 40px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-surface-container-low);
+  border-bottom: 1px solid rgba(72, 72, 71, 0.05);
+}
+.panel-header .label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+}
+.panel-header .dots {
+  display: flex;
+  gap: 6px;
+}
+.panel-header .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.dot-primary { background: var(--color-primary-container); }
+.dot-secondary { background: var(--color-surface-container-highest); }
+.panel-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+.code-editor {
+  flex: 1;
+  display: flex;
+  position: relative;
+  background: var(--color-surface-container-lowest);
+  padding: 16px;
+}
+.line-numbers {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background: var(--color-surface-container);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 16px;
+  font-size: 0.6875rem;
+  color: rgba(173, 170, 170, 0.3);
+  font-family: 'JetBrains Mono', monospace;
+  overflow: hidden;
+  user-select: none;
+}
+.line-numbers span { display: block; line-height: 1.5; }
+#json-input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.875rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-primary);
+  line-height: 1.5;
+  resize: none;
+  padding-left: 48px;
+}
+#json-input::placeholder {
+  color: rgba(173, 170, 170, 0.3);
+}
+.viewer-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  overflow: auto;
+  text-align: center;
+}
+.empty-state .empty-icon {
+  margin-bottom: 32px;
+  position: relative;
+}
+.empty-state .empty-icon .icon-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, #00daf3 0%, #00e5ff 100%);
+  opacity: 0.2;
+  filter: blur(32px);
+}
+.empty-state .empty-icon .material-symbols-outlined {
+  position: relative;
+  font-size: 4rem;
+  color: var(--color-primary-container);
+  font-variation-settings: 'FILL' 0, 'wght' 200;
+}
+.empty-state h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+.empty-state p {
+  font-size: 0.875rem;
+  color: var(--color-on-surface-variant);
+  max-width: 288px;
+  line-height: 1.6;
+}
+.empty-state .skeleton {
+  margin-top: 48px;
+  width: 100%;
+  max-width: 256px;
+}
+.skeleton-bar {
+  height: 8px;
+  background: var(--color-surface-container-high);
+  opacity: 0.2;
+  margin-bottom: 16px;
+}
+.skeleton-bar:last-child { opacity: 0.1; }
+#tree-view {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  text-align: left;
+}
+.tree-line {
+  white-space: nowrap;
+}
+.error-state .error-icon {
+  margin-bottom: 32px;
+  position: relative;
+}
+.error-state .error-icon .error-glow {
+  position: absolute;
+  inset: 0;
+  background: var(--color-error-container);
+  opacity: 0.2;
+  filter: blur(32px);
+}
+.error-state .material-symbols-outlined {
+  position: relative;
+  font-size: 4rem;
+  color: var(--color-error);
+  font-variation-settings: 'FILL' 0, 'wght' 200;
+}
+.error-state h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-error);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+.error-state p {
+  font-size: 0.875rem;
+  color: var(--color-on-surface-variant);
+  max-width: 288px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+#error-message {
+  font-size: 0.875rem;
+  color: var(--color-error);
+  background: rgba(159, 5, 25, 0.2);
+  padding: 8px 16px;
+  border-left: 4px solid var(--color-error);
+  max-width: 100%;
+  overflow: auto;
+  text-align: left;
+  font-family: 'JetBrains Mono', monospace;
+}
+.action-btn {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  display: flex;
+  gap: 16px;
+}
+.btn-primary {
+  background: linear-gradient(45deg, #00daf3 0%, #00e5ff 100%);
+  color: var(--color-on-primary);
+  padding: 12px 24px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.btn-primary:active {
+  opacity: 0.8;
+  transform: scale(0.99);
+}
+footer {
+  background: var(--color-surface-dim);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  height: 32px;
+  width: 100%;
+  border-top: 1px solid rgba(72, 72, 71, 0.15);
+  flex-shrink: 0;
+}
+.footer-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+footer .shortcuts {
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+}
+footer .shortcuts kbd {
+  color: var(--color-primary-container);
+}
+footer .footer-divider {
+  height: 12px;
+  width: 1px;
+  background: rgba(72, 72, 71, 0.3);
+}
+footer .status {
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+}
+footer .status span { color: #22c55e; }
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+footer .footer-tag {
+  font-size: 0.6875rem;
+  color: var(--color-on-surface-variant);
+  font-family: 'JetBrains Mono', monospace;
+}
+#shortcuts-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+}
+#shortcuts-modal > div {
+  background: var(--color-surface-container);
+  border: 1px solid rgba(72, 72, 71, 0.3);
+  padding: 32px;
+  min-width: 400px;
+  max-width: 448px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+#shortcuts-modal h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+#shortcuts-modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+#shortcuts-modal .modal-close {
+  color: var(--color-on-surface-variant);
+  padding: 4px;
+  transition: color 0.15s;
+}
+#shortcuts-modal .modal-close:hover {
+  color: var(--color-on-surface);
+}
+.shortcut-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(72, 72, 71, 0.1);
+}
+.shortcut-row:last-child {
+  border-bottom: none;
+}
+.shortcut-row span {
+  color: var(--color-on-surface-variant);
+}
+.shortcut-row kbd {
+  background: var(--color-surface-container-high);
+  padding: 4px 12px;
+  color: var(--color-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+}
+#toast {
+  position: fixed;
+  bottom: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-surface-container-high);
+  border: 1px solid rgba(72, 72, 71, 0.3);
+  padding: 12px 24px;
+  font-size: 0.875rem;
+  color: var(--color-on-surface);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  z-index: 50;
+  transition: opacity 0.3s;
+}
 </style>
 </head>
-<body class="flex flex-col h-screen overflow-hidden">
-<header class="bg-[var(--color-surface-dim)] flex justify-between items-center w-full px-6 h-14 flex-shrink-0 border-b border-[var(--color-outline-variant)]/15">
-  <div class="flex items-center gap-4">
-    <span class="text-lg font-bold text-[#00E5FF] tracking-[-0.02em]">JSON FORMATTER</span>
-    <span class="text-[0.6875rem] uppercase tracking-[0.05em] text-[var(--color-on-surface-variant)] bg-[var(--color-surface-container-high)] px-2 py-0.5">V1.0.0</span>
+<body>
+<header>
+  <div class="logo">
+    <span class="title">JSON FORMATTER</span>
   </div>
-  <nav class="flex items-center space-x-6">
-    <button class="text-[var(--color-on-surface-variant)] text-sm hover:bg-[var(--color-surface-container-high)] hover:text-[var(--color-on-surface)] px-3 py-1 transition-colors duration-150" data-action="help">Yardım</button>
-    <button class="text-[var(--color-on-surface-variant)] text-sm hover:bg-[var(--color-surface-container-high)] hover:text-[var(--color-on-surface)] px-3 py-1 transition-colors duration-150" data-action="settings">Ayarlar</button>
-    <div class="h-6 w-[1px] bg-[var(--color-outline-variant)]/15"></div>
-    <button class="material-symbols-outlined text-[#00E5FF] hover:bg-[var(--color-surface-container-high)] p-2 transition-all" data-action="account">account_circle</button>
+  <nav>
+    <button data-action="help">Yardım</button>
+    <button data-action="settings">Ayarlar</button>
+    <div class="divider"></div>
+    <button class="material-symbols-outlined" data-action="account" style="color:#00E5FF;padding:8px;">account_circle</button>
   </nav>
 </header>
-<main class="flex-1 flex overflow-hidden">
-  <aside class="bg-[var(--color-surface-container-low)] flex flex-col items-center py-4 space-y-2 w-20 flex-shrink-0">
-    <button class="group flex flex-col items-center gap-1 cursor-pointer bg-[var(--color-surface-container-high)] text-[#00E5FF] border-l-2 border-[#00E5FF] w-full py-4 transition-all active:translate-x-1" data-action="format" title="Biçimlendir (Ctrl+Enter)">
+<main>
+  <aside>
+    <button data-action="format" title="Biçimlendir (Ctrl+Enter)">
       <span class="material-symbols-outlined">format_align_left</span>
-      <span class="font-mono text-[0.6875rem] uppercase tracking-[0.05em]">Biçimlendir</span>
+      <span>Biçimlendir</span>
     </button>
-    <button class="group flex flex-col items-center gap-1 cursor-pointer text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container-high)] hover:text-[var(--color-on-surface)] w-full py-4 transition-all" data-action="minify" title="Küçült (Ctrl+Shift+M)">
+    <button data-action="minify" title="Küçült (Ctrl+Shift+M)">
       <span class="material-symbols-outlined">compress</span>
-      <span class="font-mono text-[0.6875rem] uppercase tracking-[0.05em]">Küçült</span>
+      <span>Küçült</span>
     </button>
-    <button class="group flex flex-col items-center gap-1 cursor-pointer text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container-high)] hover:text-[var(--color-on-surface)] w-full py-4 transition-all" data-action="copy" title="Kopyala (Ctrl+Shift+C)">
+    <button data-action="copy" title="Kopyala (Ctrl+Shift+C)">
       <span class="material-symbols-outlined">content_copy</span>
-      <span class="font-mono text-[0.6875rem] uppercase tracking-[0.05em]">Kopyala</span>
+      <span>Kopyala</span>
     </button>
-    <button class="group flex flex-col items-center gap-1 cursor-pointer text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container-high)] hover:text-[var(--color-on-surface)] w-full py-4 transition-all" data-action="clear" title="Temizle (Ctrl+L)">
+    <button data-action="clear" title="Temizle (Ctrl+L)">
       <span class="material-symbols-outlined">delete_sweep</span>
-      <span class="font-mono text-[0.6875rem] uppercase tracking-[0.05em]">Temizle</span>
+      <span>Temizle</span>
     </button>
   </aside>
-  <div class="flex-1 flex flex-col md:flex-row bg-[var(--color-surface-dim)]">
-    <section class="flex-1 flex flex-col bg-[var(--color-surface-container-low)] relative overflow-hidden border-r border-[var(--color-outline-variant)]/15">
-      <div class="h-10 px-4 flex items-center justify-between bg-[var(--color-surface-container-low)] border-b border-[var(--color-outline-variant)]/5">
-        <span class="text-[0.6875rem] font-medium text-[var(--color-on-surface-variant)] uppercase tracking-[0.05em]">GİRİŞ_VERİSİ.JSON</span>
-        <div class="flex gap-2">
-          <div class="w-2 h-2 bg-[var(--color-primary-container)] rounded-full"></div>
-          <div class="w-2 h-2 bg-[var(--color-surface-container-highest)] rounded-full"></div>
+  <div class="main-panels">
+    <div class="panel panel-left" style="border-right: 1px solid rgba(72,72,71,0.15);">
+      <div class="panel-header">
+        <span class="label">GİRİŞ_VERİSİ.JSON</span>
+        <div class="dots">
+          <div class="dot dot-primary"></div>
+          <div class="dot dot-secondary"></div>
         </div>
       </div>
-      <div class="flex-1 flex flex-col p-4">
-        <div class="flex-1 bg-[var(--color-surface-container-lowest)] p-4 relative group flex">
-          <div id="line-numbers" class="absolute left-0 top-0 bottom-0 w-10 bg-[var(--color-surface-container)] flex flex-col items-center py-4 text-[0.6875rem] text-[var(--color-on-surface-variant)]/30 font-mono select-none overflow-hidden"></div>
-          <textarea id="json-input" class="w-full h-full bg-transparent border-none focus:ring-0 text-sm font-mono text-[var(--color-primary)] leading-relaxed resize-none pl-10 placeholder:text-[var(--color-on-surface-variant)]/30" placeholder="JSON yapıştırın veya sürükleyip bırakın" spellcheck="false"></textarea>
+      <div class="panel-body">
+        <div class="code-editor">
+          <div id="line-numbers" class="line-numbers"></div>
+          <textarea id="json-input" placeholder="JSON yapıştırın" spellcheck="false"></textarea>
         </div>
       </div>
-    </section>
-    <section class="flex-1 flex flex-col bg-[var(--color-surface-dim)] relative overflow-hidden">
-      <div class="h-10 px-4 flex items-center justify-between bg-[var(--color-surface-container-lowest)] border-b border-[var(--color-outline-variant)]/5">
-        <span class="text-[0.6875rem] font-medium text-[var(--color-on-surface-variant)] uppercase tracking-[0.05em]">AĞAÇ_GÖRÜNÜMÜ</span>
-        <div class="flex gap-2 items-center">
-          <button class="material-symbols-outlined text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)] transition-colors p-1" data-action="expand-all" title="Tümünü Genişlet">unfold_more</button>
-          <button class="material-symbols-outlined text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)] transition-colors p-1" data-action="collapse-all" title="Tümünü Daralt">unfold_less</button>
-          <button class="material-symbols-outlined text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)] transition-colors p-1" data-action="fullscreen" title="Tam Ekran">fullscreen</button>
+    </div>
+    <div class="panel panel-right">
+      <div class="panel-header">
+        <span class="label">AĞAÇ_GÖRÜNÜMÜ</span>
+        <div class="dots" style="display:flex;gap:6px;align-items:center;">
+          <button data-action="expand-all" title="Tümünü Genişlet" style="padding:4px;color:var(--color-on-surface-variant);" class="material-symbols-outlined">unfold_more</button>
+          <button data-action="collapse-all" title="Tümünü Daralt" style="padding:4px;color:var(--color-on-surface-variant);" class="material-symbols-outlined">unfold_less</button>
+          <button data-action="fullscreen" title="Tam Ekran" style="padding:4px;color:var(--color-on-surface-variant);" class="material-symbols-outlined">fullscreen</button>
         </div>
       </div>
-      <div id="viewer-content" class="flex-1 flex flex-col items-center justify-center p-12 text-center overflow-auto">
-        <div id="empty-state" class="empty-state-content">
-          <div class="mb-8 relative">
-            <div class="absolute inset-0 monolith-gradient opacity-20 blur-2xl"></div>
-            <span class="material-symbols-outlined text-[var(--color-primary-container)] text-6xl relative" style="font-variation-settings: 'FILL' 0, 'wght' 200;">account_tree</span>
+      <div id="viewer-content" class="viewer-content">
+        <div id="empty-state" class="empty-state">
+          <div class="empty-icon">
+            <div class="icon-glow"></div>
+            <span class="material-symbols-outlined">account_tree</span>
           </div>
-          <h2 class="text-xl font-bold text-white tracking-tight mb-2">VERİ BEKLENİYOR</h2>
-          <p class="text-sm text-[var(--color-on-surface-variant)] max-w-xs leading-relaxed">JSON girin, ağaç görünümünü burada görün. Yapılandırılmış verileriniz otomatik olarak burada render edilecektir.</p>
-          <div class="mt-12 w-full max-w-sm space-y-4">
-            <div class="h-2 w-3/4 bg-[var(--color-surface-container-high)] mx-auto opacity-20"></div>
-            <div class="h-2 w-1/2 bg-[var(--color-surface-container-high)] mx-auto opacity-10"></div>
+          <h2>VERİ BEKLENİYOR</h2>
+          <p>JSON girin, ağaç görünümünü burada görün. Yapılandırılmış verileriniz otomatik olarak render edilecektir.</p>
+          <div class="skeleton">
+            <div class="skeleton-bar" style="width:75%;margin-left:auto;margin-right:auto;"></div>
+            <div class="skeleton-bar" style="width:50%;margin-left:auto;margin-right:auto;"></div>
           </div>
         </div>
-        <div id="tree-view" class="hidden w-full h-full overflow-auto text-left"></div>
-        <div id="error-state" class="hidden error-state-content">
-          <div class="mb-8 relative">
-            <div class="absolute inset-0 bg-[var(--color-error-container)] opacity-20 blur-2xl"></div>
-            <span class="material-symbols-outlined text-[var(--color-error)] text-6xl relative" style="font-variation-settings: 'FILL' 0, 'wght' 200;">warning</span>
+        <div id="tree-view" class="hidden"></div>
+        <div id="error-state" class="hidden error-state">
+          <div class="error-icon">
+            <div class="error-glow"></div>
+            <span class="material-symbols-outlined">warning</span>
           </div>
-          <h2 class="text-xl font-bold text-[var(--color-error)] tracking-tight mb-2">GEÇERSİZ JSON</h2>
-          <p class="text-sm text-[var(--color-on-surface-variant)] max-w-xs leading-relaxed mb-4">Biçimlendirme hatası:</p>
-          <div id="error-message" class="text-sm text-[var(--color-error)] bg-[var(--color-error-container)]/20 px-4 py-2 rounded-sm border-l-4 border-[var(--color-error)] max-w-full overflow-auto text-left font-mono"></div>
+          <h2>GEÇERSİZ JSON</h2>
+          <p>Biçimlendirme hatası:</p>
+          <div id="error-message"></div>
         </div>
       </div>
-      <div class="absolute bottom-8 right-8 flex gap-4">
-        <button id="format-btn" class="monolith-gradient text-[var(--color-on-primary)] px-6 py-3 font-bold text-xs uppercase tracking-widest flex items-center gap-2 active:opacity-80 active:scale-[0.99] transition-all" data-action="format">
+      <div class="action-btn">
+        <button class="btn-primary" data-action="format">
           <span class="material-symbols-outlined">auto_fix_high</span>
           Biçimlendir
         </button>
       </div>
-    </section>
+    </div>
   </div>
 </main>
-<footer class="bg-[var(--color-surface-dim)] flex items-center px-6 h-8 w-full border-t border-[var(--color-outline-variant)]/15 flex-shrink-0">
-  <div class="flex-1 flex items-center gap-6">
-    <span class="font-mono text-[0.6875rem] tracking-[0.05em] text-[var(--color-on-surface-variant)]">Kısayollar: <span class="text-[var(--color-primary-container)]">Ctrl+Enter</span> Biçimlendir | <span class="text-[var(--color-primary-container)]">Ctrl+Shift+M</span> Küçült | <span class="text-[var(--color-primary-container)]">Ctrl+Shift+C</span> Kopyala | <span class="text-[var(--color-primary-container)]">Ctrl+L</span> Temizle | <span class="text-[var(--color-primary-container)]">?</span> Kısayollar</span>
-    <div class="h-3 w-[1px] bg-[var(--color-outline-variant)]/30"></div>
-    <span id="status-indicator" class="font-mono text-[0.6875rem] tracking-[0.05em] text-[var(--color-on-surface-variant)]">Sistem Durumu: <span class="text-green-500">ÇALIŞIYOR</span></span>
+<footer>
+  <div class="footer-left">
+    <span class="shortcuts">Kısayollar: <kbd>Ctrl+Enter</kbd> Biçimlendir | <kbd>Ctrl+Shift+M</kbd> Küçült | <kbd>Ctrl+Shift+C</kbd> Kopyala | <kbd>Ctrl+L</kbd> Temizle | <kbd>?</kbd> Kısayollar</span>
+    <div class="footer-divider"></div>
+    <span class="status">Sistem Durumu: <span>ÇALIŞIYOR</span></span>
   </div>
-  <div class="flex items-center gap-4">
-    <span class="text-[0.6875rem] text-[var(--color-on-surface-variant)] font-mono">UTF-8</span>
-    <span class="text-[0.6875rem] text-[var(--color-on-surface-variant)] font-mono">JSON</span>
+  <div class="footer-right">
+    <span class="footer-tag">UTF-8</span>
+    <span class="footer-tag">JSON</span>
   </div>
 </footer>
-<div id="shortcuts-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70">
-  <div class="bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)]/30 p-8 min-w-[400px] max-w-lg shadow-2xl">
-    <div class="flex justify-between items-center mb-6">
-      <h2 class="text-xl font-bold text-[var(--color-primary)] tracking-tight">Klavye Kısayolları</h2>
-      <button class="material-symbols-outlined text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] p-1 transition-colors" data-action="close-modal">close</button>
+<div id="shortcuts-modal" class="hidden">
+  <div>
+    <div class="modal-header">
+      <h2>Klavye Kısayolları</h2>
+      <button class="material-symbols-outlined modal-close" data-action="close-modal">close</button>
     </div>
-    <div class="space-y-4">
-      <div class="flex justify-between items-center py-3 border-b border-[var(--color-outline-variant)]/10"><span class="text-[var(--color-on-surface-variant)]">Biçimlendir</span><kbd class="bg-[var(--color-surface-container-high)] px-3 py-1 text-[var(--color-primary)] font-mono text-sm">Ctrl + Enter</kbd></div>
-      <div class="flex justify-between items-center py-3 border-b border-[var(--color-outline-variant)]/10"><span class="text-[var(--color-on-surface-variant)]">Minify</span><kbd class="bg-[var(--color-surface-container-high)] px-3 py-1 text-[var(--color-primary)] font-mono text-sm">Ctrl + Shift + M</kbd></div>
-      <div class="flex justify-between items-center py-3 border-b border-[var(--color-outline-variant)]/10"><span class="text-[var(--color-on-surface-variant)]">Kopyala</span><kbd class="bg-[var(--color-surface-container-high)] px-3 py-1 text-[var(--color-primary)] font-mono text-sm">Ctrl + Shift + C</kbd></div>
-      <div class="flex justify-between items-center py-3 border-b border-[var(--color-outline-variant)]/10"><span class="text-[var(--color-on-surface-variant)]">Temizle</span><kbd class="bg-[var(--color-surface-container-high)] px-3 py-1 text-[var(--color-primary)] font-mono text-sm">Ctrl + L</kbd></div>
-      <div class="flex justify-between items-center py-3"><span class="text-[var(--color-on-surface-variant)]">Kısayollar Penceresi</span><kbd class="bg-[var(--color-surface-container-high)] px-3 py-1 text-[var(--color-primary)] font-mono text-sm">?</kbd></div>
+    <div>
+      <div class="shortcut-row"><span>Biçimlendir</span><kbd>Ctrl + Enter</kbd></div>
+      <div class="shortcut-row"><span>Küçült</span><kbd>Ctrl + Shift + M</kbd></div>
+      <div class="shortcut-row"><span>Kopyala</span><kbd>Ctrl + Shift + C</kbd></div>
+      <div class="shortcut-row"><span>Temizle</span><kbd>Ctrl + L</kbd></div>
+      <div class="shortcut-row"><span>Kısayollar Penceresi</span><kbd>?</kbd></div>
     </div>
   </div>
 </div>
-<div id="toast" class="hidden fixed bottom-16 left-1/2 transform -translate-x-1/2 bg-[var(--color-surface-container-high)] border border-[var(--color-outline-variant)]/30 px-6 py-3 text-sm text-[var(--color-on-surface)] shadow-xl z-50 transition-all duration-300"></div>
+<div id="toast" class="hidden"></div>
 <script type="module" src="dist/bundle.js"></script>
 </body>
 </html>

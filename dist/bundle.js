@@ -1,7 +1,4 @@
-// src/index.ts
-var currentInput = "";
-var currentOutput = "";
-var expandedNodes = /* @__PURE__ */ new Set();
+// src/json-utils.ts
 function validateJson(input) {
   if (!input.trim()) {
     return { valid: false, error: "Bo\u015F girdi" };
@@ -9,8 +6,8 @@ function validateJson(input) {
   try {
     JSON.parse(input);
     return { valid: true };
-  } catch (e) {
-    return { valid: false, error: e.message };
+  } catch {
+    return { valid: false, error: "Ge\xE7ersiz JSON s\xF6zdizimi" };
   }
 }
 function formatJson(input) {
@@ -38,94 +35,106 @@ function parseNode(key, value, path) {
 function getType(value) {
   if (value === null) return "null";
   if (Array.isArray(value)) return "array";
-  return typeof value;
+  const t = typeof value;
+  if (t === "string") return "string";
+  if (t === "number") return "number";
+  if (t === "boolean") return "boolean";
+  return "string";
 }
-function renderTree(node, depth = 0) {
-  const isExpandable = node.children && node.children.length > 0;
-  const nodeId = node.path;
-  const isExpanded = expandedNodes.has(nodeId) || depth < 2;
-  let html = "";
-  if (node.key === "root") {
-    if (node.children) {
-      html += node.children.map((child) => renderTree(child, depth)).join("\n");
-    }
-  } else {
+
+// src/index.ts
+var currentInput = "";
+var currentOutput = "";
+var expandedNodes = /* @__PURE__ */ new Set();
+function validateForAction(input) {
+  if (!input.trim()) return false;
+  return validateJson(input).valid;
+}
+function renderNodeValue(node, depth, expandedNodes2) {
+  const keyEsc = escapeHtml(node.key);
+  const pathEsc = escapeHtml(node.path);
+  if (node.type === "object" || node.type === "array") {
+    const isExpanded = expandedNodes2.has(node.path) || depth < 2;
+    const isExpandable = node.children && node.children.length > 0;
     const toggleIcon = isExpandable ? isExpanded ? "unfold_less" : "unfold_more" : "fiber_manual_record";
     const expandClass = isExpandable ? "cursor-pointer toggle-node" : "";
-    const dataPath = isExpandable ? `data-path="${nodeId}"` : "";
+    const dataPath = isExpandable ? `data-path="${pathEsc}"` : "";
     const expandAttr = isExpandable ? `data-expand="${!isExpanded}"` : "";
-    html += `<div class="tree-line" style="padding-left: ${depth * 20}px;">`;
+    const openBracket = node.type === "object" ? "{" : "[";
+    const closeBracket = node.type === "object" ? "}" : "]";
+    const collapsed = node.type === "object" ? "{...}" : "[...]";
+    let html = `<div class="tree-line" style="padding-left: ${depth * 20}px;">`;
     html += `<span class="${expandClass}" ${dataPath} ${expandAttr}>`;
-    html += `<span class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle; color: var(--color-on-surface-variant);">${toggleIcon}</span>`;
-    html += `</span>`;
-    if (node.type === "object") {
-      html += `<span style="color: var(--color-secondary);">"${node.key}"</span>`;
-      html += `<span style="color: var(--color-on-surface-variant);">: </span>`;
-      html += `<span style="color: var(--color-on-surface-variant);">${isExpanded ? "{" : "{...}"}</span>`;
-      if (isExpanded) {
-        html += `
-${node.children.map((c) => renderTree(c, depth + 1)).join("\n")}
+    html += `<span class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle; color: var(--color-on-surface-variant);">${toggleIcon}</span></span>`;
+    html += `<span style="color: var(--color-secondary);">"${keyEsc}"</span>`;
+    html += `<span style="color: var(--color-on-surface-variant);">: </span>`;
+    html += `<span style="color: var(--color-on-surface-variant);">${isExpanded ? openBracket : collapsed}</span>`;
+    if (isExpanded && node.children) {
+      html += `
+${node.children.map((c) => renderNodeValue(c, depth + 1, expandedNodes2)).join("\n")}
 `;
-        html += `<div style="padding-left: ${depth * 20}px;"><span style="color: var(--color-on-surface-variant);">}</span></div>`;
-      }
-    } else if (node.type === "array") {
-      html += `<span style="color: var(--color-secondary);">"${node.key}"</span>`;
-      html += `<span style="color: var(--color-on-surface-variant);">: </span>`;
-      html += `<span style="color: var(--color-on-surface-variant);">${isExpanded ? "[" : "[...]"}</span>`;
-      if (isExpanded) {
-        html += `
-${node.children.map((c) => renderTree(c, depth + 1)).join("\n")}
-`;
-        html += `<div style="padding-left: ${depth * 20}px;"><span style="color: var(--color-on-surface-variant);">]</span></div>`;
-      }
-    } else if (node.type === "string") {
-      html += `<span style="color: var(--color-secondary);">"${node.key}"</span>`;
-      html += `<span style="color: var(--color-on-surface-variant);">: </span>`;
-      html += `<span style="color: var(--color-tertiary);">"${escapeHtml(String(node.value))}"</span>`;
-    } else if (node.type === "number") {
-      html += `<span style="color: var(--color-secondary);">"${node.key}"</span>`;
-      html += `<span style="color: var(--color-on-surface-variant);">: </span>`;
-      html += `<span style="color: var(--color-primary);">${node.value}</span>`;
-    } else if (node.type === "boolean") {
-      html += `<span style="color: var(--color-secondary);">"${node.key}"</span>`;
-      html += `<span style="color: var(--color-on-surface-variant);">: </span>`;
-      html += `<span style="color: var(--color-secondary-dim);">${String(node.value)}</span>`;
-    } else if (node.type === "null") {
-      html += `<span style="color: var(--color-secondary);">"${node.key}"</span>`;
-      html += `<span style="color: var(--color-on-surface-variant);">: </span>`;
-      html += `<span style="color: var(--color-error-dim);">null</span>`;
+      html += `<div style="padding-left: ${depth * 20}px;"><span style="color: var(--color-on-surface-variant);">${closeBracket}</span></div>`;
     }
     html += `</div>`;
+    return html;
   }
-  return html;
+  switch (node.type) {
+    case "string": {
+      return `<div class="tree-line" style="padding-left: ${depth * 20}px;">
+<span style="color: var(--color-secondary);">"${keyEsc}"</span><span style="color: var(--color-on-surface-variant);">: </span><span style="color: var(--color-tertiary);">"${escapeHtml(String(node.value))}"</span></div>`;
+    }
+    case "number": {
+      return `<div class="tree-line" style="padding-left: ${depth * 20}px;">
+<span style="color: var(--color-secondary);">"${keyEsc}"</span><span style="color: var(--color-on-surface-variant);">: </span><span style="color: var(--color-primary);">${node.value}</span></div>`;
+    }
+    case "boolean": {
+      return `<div class="tree-line" style="padding-left: ${depth * 20}px;">
+<span style="color: var(--color-secondary);">"${keyEsc}"</span><span style="color: var(--color-on-surface-variant);">: </span><span style="color: var(--color-secondary-dim);">${String(node.value)}</span></div>`;
+    }
+    case "null": {
+      return `<div class="tree-line" style="padding-left: ${depth * 20}px;">
+<span style="color: var(--color-secondary);">"${keyEsc}"</span><span style="color: var(--color-on-surface-variant);">: </span><span style="color: var(--color-error-dim);">null</span></div>`;
+    }
+  }
+}
+function renderTree(node, depth = 0, expandedNodes2 = /* @__PURE__ */ new Set()) {
+  if (node.key === "root" && node.children) {
+    return node.children.map((child) => renderNodeValue(child, depth, expandedNodes2)).join("\n");
+  }
+  return renderNodeValue(node, depth, expandedNodes2);
 }
 function escapeHtml(text) {
-  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+function getElement(id) {
+  const el = document.getElementById(id);
+  if (!el) throw new Error(`Element #${id} not found`);
+  return el;
 }
 function showEmptyState() {
-  document.getElementById("empty-state").classList.remove("hidden");
-  document.getElementById("tree-view").classList.add("hidden");
-  document.getElementById("error-state").classList.add("hidden");
+  getElement("empty-state").classList.remove("hidden");
+  getElement("tree-view").classList.add("hidden");
+  getElement("error-state").classList.add("hidden");
 }
 function showTreeView(html) {
-  document.getElementById("empty-state").classList.add("hidden");
-  document.getElementById("tree-view").classList.remove("hidden");
-  document.getElementById("error-state").classList.add("hidden");
-  document.getElementById("tree-view").innerHTML = html;
+  getElement("empty-state").classList.add("hidden");
+  getElement("tree-view").classList.remove("hidden");
+  getElement("error-state").classList.add("hidden");
+  getElement("tree-view").innerHTML = html;
 }
 function showErrorState(message) {
-  document.getElementById("empty-state").classList.add("hidden");
-  document.getElementById("tree-view").classList.add("hidden");
-  document.getElementById("error-state").classList.remove("hidden");
-  document.getElementById("error-message").textContent = message;
+  getElement("empty-state").classList.add("hidden");
+  getElement("tree-view").classList.add("hidden");
+  getElement("error-state").classList.remove("hidden");
+  getElement("error-message").textContent = message;
 }
 function updateLineNumbers(text) {
   const lines = text.split("\n");
-  const container = document.getElementById("line-numbers");
+  const container = getElement("line-numbers");
   container.innerHTML = lines.map((_, i) => `<span>${String(i + 1).padStart(2, "0")}</span>`).join("");
 }
 function showToast(message) {
-  const toast = document.getElementById("toast");
+  const toast = getElement("toast");
   toast.textContent = message;
   toast.classList.remove("hidden");
   setTimeout(() => toast.classList.add("hidden"), 2500);
@@ -138,7 +147,7 @@ function copyToClipboard(text) {
   });
 }
 function updateAll() {
-  const input = document.getElementById("json-input").value;
+  const input = getElement("json-input").value;
   currentInput = input;
   updateLineNumbers(input);
   if (!input.trim()) {
@@ -156,7 +165,7 @@ function updateAll() {
     const formatted = formatJson(input);
     currentOutput = formatted;
     const tree = buildTree(input);
-    const treeHtml = renderTree(tree);
+    const treeHtml = renderTree(tree, 0, expandedNodes);
     showTreeView(treeHtml);
   } catch (e) {
     showErrorState(e.message);
@@ -179,21 +188,16 @@ function collapseAll() {
   updateAll();
 }
 function handleAction(action) {
-  const input = document.getElementById("json-input").value;
+  const input = getElement("json-input").value;
   switch (action) {
     case "format": {
-      if (!input.trim()) {
+      if (!validateForAction(input)) {
         showToast("Bi\xE7imlendirilecek JSON yok");
-        return;
-      }
-      const validation = validateJson(input);
-      if (!validation.valid) {
-        showErrorState(validation.error || "Ge\xE7ersiz JSON");
         return;
       }
       try {
         const formatted = formatJson(input);
-        document.getElementById("json-input").value = formatted;
+        getElement("json-input").value = formatted;
         updateAll();
         showToast("Bi\xE7imlendirildi");
       } catch (e) {
@@ -202,18 +206,13 @@ function handleAction(action) {
       break;
     }
     case "minify": {
-      if (!input.trim()) {
+      if (!validateForAction(input)) {
         showToast("K\xFC\xE7\xFClt\xFClecek JSON yok");
-        return;
-      }
-      const validation = validateJson(input);
-      if (!validation.valid) {
-        showErrorState(validation.error || "Ge\xE7ersiz JSON");
         return;
       }
       try {
         const minified = minifyJson(input);
-        document.getElementById("json-input").value = minified;
+        getElement("json-input").value = minified;
         updateAll();
         showToast("K\xFC\xE7\xFClt\xFCld\xFC");
       } catch (e) {
@@ -230,7 +229,7 @@ function handleAction(action) {
       break;
     }
     case "clear": {
-      document.getElementById("json-input").value = "";
+      getElement("json-input").value = "";
       currentInput = "";
       currentOutput = "";
       expandedNodes.clear();
@@ -252,7 +251,19 @@ function handleAction(action) {
       break;
     }
     case "close-modal": {
-      document.getElementById("shortcuts-modal").classList.add("hidden");
+      getElement("shortcuts-modal").classList.add("hidden");
+      break;
+    }
+    case "help": {
+      getElement("shortcuts-modal").classList.remove("hidden");
+      break;
+    }
+    case "settings": {
+      showToast("Ayarlar yak\u0131nda");
+      break;
+    }
+    case "account": {
+      showToast("Hesap yak\u0131nda");
       break;
     }
   }
@@ -261,11 +272,11 @@ function setupKeyboardShortcuts() {
   document.addEventListener("keydown", (e) => {
     if (e.key === "?" && !isInputFocused()) {
       e.preventDefault();
-      document.getElementById("shortcuts-modal").classList.remove("hidden");
+      getElement("shortcuts-modal").classList.remove("hidden");
       return;
     }
     if (e.key === "Escape") {
-      document.getElementById("shortcuts-modal").classList.add("hidden");
+      getElement("shortcuts-modal").classList.add("hidden");
       return;
     }
     if (e.ctrlKey || e.metaKey) {
@@ -290,14 +301,14 @@ function isInputFocused() {
   return active instanceof HTMLTextAreaElement || active instanceof HTMLInputElement;
 }
 function setupEventListeners() {
-  document.getElementById("json-input").addEventListener("input", updateAll);
+  getElement("json-input").addEventListener("input", updateAll);
   document.querySelectorAll("[data-action]").forEach((el) => {
     el.addEventListener("click", (e) => {
       const action = e.currentTarget.getAttribute("data-action");
       if (action) handleAction(action);
     });
   });
-  document.getElementById("tree-view").addEventListener("click", (e) => {
+  getElement("tree-view").addEventListener("click", (e) => {
     const target = e.target;
     const toggle = target.closest(".toggle-node");
     if (toggle) {
@@ -328,7 +339,7 @@ window.jsonFormatter = {
     return minifyJson(input);
   },
   clear: () => {
-    document.getElementById("json-input").value = "";
+    getElement("json-input").value = "";
     currentInput = "";
     currentOutput = "";
     expandedNodes.clear();
@@ -342,3 +353,11 @@ document.addEventListener("DOMContentLoaded", () => {
   updateLineNumbers("");
   showEmptyState();
 });
+export {
+  buildTree,
+  formatJson,
+  minifyJson,
+  renderNodeValue,
+  renderTree,
+  validateJson
+};
