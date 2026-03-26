@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JSON Biçimlendirici | MONOLITH.JSON</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --color-on-primary-container: #004d57;
+  --color-surface-container: #1a1a1a;
+  --color-on-tertiary-container: #005b51;
+  --color-on-surface: #ffffff;
+  --color-surface-dim: #0e0e0e;
+  --color-surface-tint: #81ecff;
+  --color-primary-fixed: #00e3fd;
+  --color-on-background: #ffffff;
+  --color-secondary: #bc87fe;
+  --color-inverse-on-surface: #565555;
+  --color-outline: #767575;
+  --color-background: #0e0e0e;
+  --color-tertiary-fixed: #4af8e3;
+  --color-tertiary-container: #4af8e3;
+  --color-surface-container-low: #131313;
+  --color-surface-container-highest: #262626;
+  --color-error-container: #9f0519;
+  --color-tertiary-fixed-dim: #33e9d5;
+  --color-surface: #0e0e0e;
+  --color-on-secondary-container: #e1c5ff;
+  --color-inverse-primary: #006976;
+  --color-on-primary-fixed: #003840;
+  --color-on-secondary: #340064;
+  --color-secondary-fixed: #e2c7ff;
+  --color-primary-fixed-dim: #00d4ec;
+  --color-on-primary: #005762;
+  --color-on-secondary-fixed-variant: #6834a6;
+  --color-on-secondary-fixed: #4a0b87;
+  --color-surface-bright: #2c2c2c;
+  --color-primary-container: #00e5ff;
+  --color-outline-variant: #484847;
+  --color-on-surface-variant: #adaaaa;
+  --color-on-error: #490006;
+  --color-on-error-container: #ffa8a3;
+  --color-primary: #81ecff;
+  --color-error: #ff716c;
+  --color-surface-container-high: #20201f;
+  --color-secondary-container: #5e289b;
+  --color-surface-container-lowest: #000000;
+  --color-inverse-surface: #fcf9f8;
+  --color-tertiary: #a0fff0;
+  --color-surface-variant: #262626;
+  --color-on-tertiary: #00645a;
+  --color-on-primary-fixed-variant: #005762;
+  --color-primary-dim: #00d4ec;
+  --color-secondary-dim: #ba85fb;
+  --color-tertiary-dim: #2de7d2;
+  --color-error-dim: #d7383b;
+  --font-headline: 'JetBrains Mono', monospace;
+  --font-body: 'JetBrains Mono', monospace;
+  --font-label: 'JetBrains Mono', monospace;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--color-surface-container-lowest);
+  color: var(--color-on-surface);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+  font-size: 1.25rem;
+}
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--color-surface-dim); }
+::-webkit-scrollbar-thumb { background: var(--color-surface-container-high); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-primary-container); }
+.monolith-gradient {
+  background: linear-gradient(45deg, #00daf3 0%, #00e5ff 100%);
+}
+button { cursor: pointer; font-family: inherit; }
+textarea { font-family: inherit; }
+.hidden { display: none !important; }
+header {
+  background: var(--color-surface-dim);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 56px;
+  padding: 0 24px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(72, 72, 71, 0.15);
+}
+header .logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+header .logo .title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #00E5FF;
+  letter-spacing: -0.02em;
+}
+header .logo .badge {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  background: var(--color-surface-container-high);
+  padding: 2px 8px;
+}
+header nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+header nav button {
+  color: var(--color-on-surface-variant);
+  font-size: 0.875rem;
+  padding: 4px 12px;
+  transition: color 0.15s, background 0.15s;
+}
+header nav button:hover {
+  background: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+}
+header nav .divider {
+  height: 24px;
+  width: 1px;
+  background: rgba(72, 72, 71, 0.15);
+}
+main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+aside {
+  background: var(--color-surface-container-low);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  gap: 8px;
+  width: 80px;
+  flex-shrink: 0;
+}
+aside button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 16px 0;
+  width: 100%;
+  transition: all 0.15s;
+}
+aside button.active {
+  background: var(--color-surface-container-high);
+  color: #00E5FF;
+  border-left: 2px solid #00E5FF;
+}
+aside button:not(.active) {
+  color: var(--color-on-surface-variant);
+}
+aside button:not(.active):hover {
+  background: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+}
+aside button .material-symbols-outlined {
+  font-size: 1.25rem;
+}
+aside button span:last-child {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.main-panels {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.panel-left {
+  background: var(--color-surface-dim);
+}
+.panel-right {
+  background: var(--color-surface-dim);
+}
+.panel-header {
+  height: 40px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-surface-container-low);
+  border-bottom: 1px solid rgba(72, 72, 71, 0.05);
+}
+.panel-header .label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+}
+.panel-header .dots {
+  display: flex;
+  gap: 6px;
+}
+.panel-header .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.dot-primary { background: var(--color-primary-container); }
+.dot-secondary { background: var(--color-surface-container-highest); }
+.panel-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+.code-editor {
+  flex: 1;
+  display: flex;
+  position: relative;
+  background: var(--color-surface-container-lowest);
+  padding: 16px;
+}
+.line-numbers {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background: var(--color-surface-container);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 16px;
+  font-size: 0.6875rem;
+  color: rgba(173, 170, 170, 0.3);
+  font-family: 'JetBrains Mono', monospace;
+  overflow: hidden;
+  user-select: none;
+}
+.line-numbers span { display: block; line-height: 1.5; }
+#json-input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.875rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-primary);
+  line-height: 1.5;
+  resize: none;
+  padding-left: 48px;
+}
+#json-input::placeholder {
+  color: rgba(173, 170, 170, 0.3);
+}
+.viewer-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  overflow: auto;
+  text-align: center;
+}
+.empty-state .empty-icon {
+  margin-bottom: 32px;
+  position: relative;
+}
+.empty-state .empty-icon .icon-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, #00daf3 0%, #00e5ff 100%);
+  opacity: 0.2;
+  filter: blur(32px);
+}
+.empty-state .empty-icon .material-symbols-outlined {
+  position: relative;
+  font-size: 4rem;
+  color: var(--color-primary-container);
+  font-variation-settings: 'FILL' 0, 'wght' 200;
+}
+.empty-state h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+.empty-state p {
+  font-size: 0.875rem;
+  color: var(--color-on-surface-variant);
+  max-width: 288px;
+  line-height: 1.6;
+}
+.empty-state .skeleton {
+  margin-top: 48px;
+  width: 100%;
+  max-width: 256px;
+}
+.skeleton-bar {
+  height: 8px;
+  background: var(--color-surface-container-high);
+  opacity: 0.2;
+  margin-bottom: 16px;
+}
+.skeleton-bar:last-child { opacity: 0.1; }
+#tree-view {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  text-align: left;
+}
+.tree-line {
+  white-space: nowrap;
+}
+.error-state .error-icon {
+  margin-bottom: 32px;
+  position: relative;
+}
+.error-state .error-icon .error-glow {
+  position: absolute;
+  inset: 0;
+  background: var(--color-error-container);
+  opacity: 0.2;
+  filter: blur(32px);
+}
+.error-state .material-symbols-outlined {
+  position: relative;
+  font-size: 4rem;
+  color: var(--color-error);
+  font-variation-settings: 'FILL' 0, 'wght' 200;
+}
+.error-state h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-error);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+.error-state p {
+  font-size: 0.875rem;
+  color: var(--color-on-surface-variant);
+  max-width: 288px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+#error-message {
+  font-size: 0.875rem;
+  color: var(--color-error);
+  background: rgba(159, 5, 25, 0.2);
+  padding: 8px 16px;
+  border-left: 4px solid var(--color-error);
+  max-width: 100%;
+  overflow: auto;
+  text-align: left;
+  font-family: 'JetBrains Mono', monospace;
+}
+.action-btn {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  display: flex;
+  gap: 16px;
+}
+.btn-primary {
+  background: linear-gradient(45deg, #00daf3 0%, #00e5ff 100%);
+  color: var(--color-on-primary);
+  padding: 12px 24px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.btn-primary:active {
+  opacity: 0.8;
+  transform: scale(0.99);
+}
+footer {
+  background: var(--color-surface-dim);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  height: 32px;
+  width: 100%;
+  border-top: 1px solid rgba(72, 72, 71, 0.15);
+  flex-shrink: 0;
+}
+.footer-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+footer .shortcuts {
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+}
+footer .shortcuts kbd {
+  color: var(--color-primary-container);
+}
+footer .footer-divider {
+  height: 12px;
+  width: 1px;
+  background: rgba(72, 72, 71, 0.3);
+}
+footer .status {
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+}
+footer .status span { color: #22c55e; }
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+footer .footer-tag {
+  font-size: 0.6875rem;
+  color: var(--color-on-surface-variant);
+  font-family: 'JetBrains Mono', monospace;
+}
+#shortcuts-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+}
+#shortcuts-modal > div {
+  background: var(--color-surface-container);
+  border: 1px solid rgba(72, 72, 71, 0.3);
+  padding: 32px;
+  min-width: 400px;
+  max-width: 448px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+#shortcuts-modal h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+#shortcuts-modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+#shortcuts-modal .modal-close {
+  color: var(--color-on-surface-variant);
+  padding: 4px;
+  transition: color 0.15s;
+}
+#shortcuts-modal .modal-close:hover {
+  color: var(--color-on-surface);
+}
+.shortcut-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(72, 72, 71, 0.1);
+}
+.shortcut-row:last-child {
+  border-bottom: none;
+}
+.shortcut-row span {
+  color: var(--color-on-surface-variant);
+}
+.shortcut-row kbd {
+  background: var(--color-surface-container-high);
+  padding: 4px 12px;
+  color: var(--color-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+}
+#toast {
+  position: fixed;
+  bottom: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-surface-container-high);
+  border: 1px solid rgba(72, 72, 71, 0.3);
+  padding: 12px 24px;
+  font-size: 0.875rem;
+  color: var(--color-on-surface);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  z-index: 50;
+  transition: opacity 0.3s;
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <span class="title">JSON FORMATTER</span>
+  </div>
+  <nav>
+    <button data-action="help">Yardım</button>
+    <button data-action="settings">Ayarlar</button>
+    <div class="divider"></div>
+    <button class="material-symbols-outlined" data-action="account" style="color:#00E5FF;padding:8px;">account_circle</button>
+  </nav>
+</header>
+<main>
+  <aside>
+    <button data-action="format" title="Biçimlendir (Ctrl+Enter)">
+      <span class="material-symbols-outlined">format_align_left</span>
+      <span>Biçimlendir</span>
+    </button>
+    <button data-action="minify" title="Küçült (Ctrl+Shift+M)">
+      <span class="material-symbols-outlined">compress</span>
+      <span>Küçült</span>
+    </button>
+    <button data-action="copy" title="Kopyala (Ctrl+Shift+C)">
+      <span class="material-symbols-outlined">content_copy</span>
+      <span>Kopyala</span>
+    </button>
+    <button data-action="clear" title="Temizle (Ctrl+L)">
+      <span class="material-symbols-outlined">delete_sweep</span>
+      <span>Temizle</span>
+    </button>
+  </aside>
+  <div class="main-panels">
+    <div class="panel panel-left" style="border-right: 1px solid rgba(72,72,71,0.15);">
+      <div class="panel-header">
+        <span class="label">GİRİŞ_VERİSİ.JSON</span>
+        <div class="dots">
+          <div class="dot dot-primary"></div>
+          <div class="dot dot-secondary"></div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="code-editor">
+          <div id="line-numbers" class="line-numbers"></div>
+          <textarea id="json-input" placeholder="JSON yapıştırın" spellcheck="false"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-right">
+      <div class="panel-header">
+        <span class="label">AĞAÇ_GÖRÜNÜMÜ</span>
+        <div class="dots" style="display:flex;gap:6px;align-items:center;">
+          <button data-action="expand-all" title="Tümünü Genişlet" style="padding:4px;color:var(--color-on-surface-variant);" class="material-symbols-outlined">unfold_more</button>
+          <button data-action="collapse-all" title="Tümünü Daralt" style="padding:4px;color:var(--color-on-surface-variant);" class="material-symbols-outlined">unfold_less</button>
+          <button data-action="fullscreen" title="Tam Ekran" style="padding:4px;color:var(--color-on-surface-variant);" class="material-symbols-outlined">fullscreen</button>
+        </div>
+      </div>
+      <div id="viewer-content" class="viewer-content">
+        <div id="empty-state" class="empty-state">
+          <div class="empty-icon">
+            <div class="icon-glow"></div>
+            <span class="material-symbols-outlined">account_tree</span>
+          </div>
+          <h2>VERİ BEKLENİYOR</h2>
+          <p>JSON girin, ağaç görünümünü burada görün. Yapılandırılmış verileriniz otomatik olarak render edilecektir.</p>
+          <div class="skeleton">
+            <div class="skeleton-bar" style="width:75%;margin-left:auto;margin-right:auto;"></div>
+            <div class="skeleton-bar" style="width:50%;margin-left:auto;margin-right:auto;"></div>
+          </div>
+        </div>
+        <div id="tree-view" class="hidden"></div>
+        <div id="error-state" class="hidden error-state">
+          <div class="error-icon">
+            <div class="error-glow"></div>
+            <span class="material-symbols-outlined">warning</span>
+          </div>
+          <h2>GEÇERSİZ JSON</h2>
+          <p>Biçimlendirme hatası:</p>
+          <div id="error-message"></div>
+        </div>
+      </div>
+      <div class="action-btn">
+        <button class="btn-primary" data-action="format">
+          <span class="material-symbols-outlined">auto_fix_high</span>
+          Biçimlendir
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>
+  <div class="footer-left">
+    <span class="shortcuts">Kısayollar: <kbd>Ctrl+Enter</kbd> Biçimlendir | <kbd>Ctrl+Shift+M</kbd> Küçült | <kbd>Ctrl+Shift+C</kbd> Kopyala | <kbd>Ctrl+L</kbd> Temizle | <kbd>?</kbd> Kısayollar</span>
+    <div class="footer-divider"></div>
+    <span class="status">Sistem Durumu: <span>ÇALIŞIYOR</span></span>
+  </div>
+  <div class="footer-right">
+    <span class="footer-tag">UTF-8</span>
+    <span class="footer-tag">JSON</span>
+  </div>
+</footer>
+<div id="shortcuts-modal" class="hidden">
+  <div>
+    <div class="modal-header">
+      <h2>Klavye Kısayolları</h2>
+      <button class="material-symbols-outlined modal-close" data-action="close-modal">close</button>
+    </div>
+    <div>
+      <div class="shortcut-row"><span>Biçimlendir</span><kbd>Ctrl + Enter</kbd></div>
+      <div class="shortcut-row"><span>Küçült</span><kbd>Ctrl + Shift + M</kbd></div>
+      <div class="shortcut-row"><span>Kopyala</span><kbd>Ctrl + Shift + C</kbd></div>
+      <div class="shortcut-row"><span>Temizle</span><kbd>Ctrl + L</kbd></div>
+      <div class="shortcut-row"><span>Kısayollar Penceresi</span><kbd>?</kbd></div>
+    </div>
+  </div>
+</div>
+<div id="toast" class="hidden"></div>
+<script type="module" src="dist/bundle.js"></script>
+</body>
+</html>
