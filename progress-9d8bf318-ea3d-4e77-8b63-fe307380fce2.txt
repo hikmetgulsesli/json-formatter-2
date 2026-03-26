@@ -1,0 +1,10 @@
+=== US-004: JSON Validator Module ===
+COMPLETED: 2026-03-25T21:58:39+00:00
+FILES CHANGED: src/utils/jsonValidator.ts, src/utils/jsonValidator.test.ts
+KEY DECISIONS: 
+- parseJson returns ValidationResult (valid + data OR valid:false + ValidationError)
+- Error position via regex for Chrome/V8 (at position N) and Firefox (line N column C)
+- Fallback: estimate position by counting newlines before error
+- debounce utility for ~300ms real-time validation delay
+DEPENDENCIES ADDED: vitest (already in main repo)
+PROGRESS: done
