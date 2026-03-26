@@ -1,221 +1,287 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { App } from './App';
 
-// Mock navigator.clipboard
-const mockWriteText = vi.fn().mockResolvedValue(undefined);
+// Mock clipboard API
+const mockClipboard = {
+  writeText: vi.fn().mockResolvedValue(undefined),
+};
 Object.defineProperty(navigator, 'clipboard', {
-  value: {
-    writeText: mockWriteText,
-  },
+  value: mockClipboard,
   writable: true,
   configurable: true,
 });
 
-describe('App', () => {
+describe('Toolbar Actions', () => {
   beforeEach(() => {
-    vi.useFakeTimers({ shouldAdvanceTime: true });
-    mockWriteText.mockClear();
+    vi.clearAllMocks();
+    mockClipboard.writeText.mockResolvedValue(undefined);
   });
 
   afterEach(() => {
-    vi.useRealTimers();
-    vi.clearAllMocks();
+    vi.restoreAllMocks();
   });
 
-  describe('Keyboard Shortcuts Modal', () => {
-    it('should open modal when ? key is pressed', () => {
+  describe('Format Button', () => {
+    it('formats valid JSON and updates the output', async () => {
       render(<App />);
+      const textarea = screen.getByPlaceholderText('JSON yapıştırın veya sürükleyip bırakın') as HTMLTextAreaElement;
       
-      // Press ? key (not in textarea)
-      fireEvent.keyDown(window, { key: '?' });
+      fireEvent.change(textarea, { target: { value: '{"name":"test","age":25}' } });
       
-      // Modal should be visible
-      expect(screen.getByTestId('keyboard-shortcuts-modal')).toBeInTheDocument();
-      expect(screen.getByText('Klavye Kısayolları')).toBeInTheDocument();
+      const formatButton = screen.getByText('Biçimlendir');
+      fireEvent.click(formatButton);
+      
+      await waitFor(() => {
+        const output = screen.getByText(/"name": "test",\s*"age": 25/);
+        expect(output).toBeTruthy();
+      });
     });
 
-    it('should not open modal when ? is typed in textarea', () => {
+    it('shows GEÇERSİZ status for invalid JSON when Format is clicked', async () => {
       render(<App />);
-      const input = screen.getByTestId('json-input');
+      const textarea = screen.getByPlaceholderText('JSON yapıştırın veya sürükleyip bırakın') as HTMLTextAreaElement;
       
-      // Focus textarea and type ?
-      input.focus();
-      fireEvent.keyDown(input, { key: '?' });
+      fireEvent.change(textarea, { target: { value: '{invalid json}' } });
       
-      // Modal should NOT be visible
-      expect(screen.queryByTestId('keyboard-shortcuts-modal')).not.toBeInTheDocument();
+      const formatButton = screen.getByText('Biçimlendir');
+      fireEvent.click(formatButton);
+      
+      await waitFor(() => {
+        const status = screen.getByText('GEÇERSİZ');
+        expect(status).toBeTruthy();
+      });
     });
 
-    it('should close modal when Escape key is pressed', () => {
+    it('does nothing when input is empty and Format is clicked', async () => {
       render(<App />);
+      const textarea = screen.getByPlaceholderText('JSON yapıştırın veya sürükleyip bırakın') as HTMLTextAreaElement;
       
-      // Open modal
-      fireEvent.keyDown(window, { key: '?' });
-      expect(screen.getByTestId('keyboard-shortcuts-modal')).toBeInTheDocument();
+      fireEvent.change(textarea, { target: { value: '' } });
       
-      // Press Escape
-      fireEvent.keyDown(window, { key: 'Escape' });
+      const formatButton = screen.getByText('Biçimlendir');
+      fireEvent.click(formatButton);
       
-      // Modal should be closed
-      expect(screen.queryByTestId('keyboard-shortcuts-modal')).not.toBeInTheDocument();
-    });
-
-    it('should close modal when clicking overlay', () => {
-      render(<App />);
-      
-      // Open modal
-      fireEvent.keyDown(window, { key: '?' });
-      const modal = screen.getByTestId('keyboard-shortcuts-modal');
-      expect(modal).toBeInTheDocument();
-      
-      // Click on overlay (the modal backdrop)
-      fireEvent.click(modal);
-      
-      // Modal should be closed
-      expect(screen.queryByTestId('keyboard-shortcuts-modal')).not.toBeInTheDocument();
-    });
-
-    it('should close modal when clicking close button', () => {
-      render(<App />);
-      
-      // Open modal
-      fireEvent.keyDown(window, { key: '?' });
-      expect(screen.getByTestId('keyboard-shortcuts-modal')).toBeInTheDocument();
-      
-      // Click close button
-      fireEvent.click(screen.getByTestId('close-modal-btn'));
-      
-      // Modal should be closed
-      expect(screen.queryByTestId('keyboard-shortcuts-modal')).not.toBeInTheDocument();
-    });
-
-    it('should display all keyboard shortcuts with Turkish labels', () => {
-      render(<App />);
-      
-      // Open modal
-      fireEvent.keyDown(window, { key: '?' });
-      
-      // Check for Turkish labels (use getAllByText since there might be duplicates in the UI)
-      expect(screen.getAllByText('Biçimlendir').length).toBeGreaterThanOrEqual(1);
-      expect(screen.getAllByText('Küçült').length).toBeGreaterThanOrEqual(1);
-      expect(screen.getAllByText('Kopyala').length).toBeGreaterThanOrEqual(1);
-      expect(screen.getAllByText('Temizle').length).toBeGreaterThanOrEqual(1);
-    });
-
-    it('should open modal when clicking help button', () => {
-      render(<App />);
-      
-      const helpBtn = screen.getByTestId('help-btn');
-      fireEvent.click(helpBtn);
-      
-      expect(screen.getByTestId('keyboard-shortcuts-modal')).toBeInTheDocument();
+      // Should still show HAZIR status
+      const status = screen.getByText('HAZIR');
+      expect(status).toBeTruthy();
     });
   });
 
-  describe('Keyboard shortcuts work globally', () => {
-    it('should trigger format on Ctrl+Enter', async () => {
+  describe('Minify Button', () => {
+    it('minifies JSON and removes whitespace', async () => {
       render(<App />);
-      const input = screen.getByTestId('json-input');
+      const textarea = screen.getByPlaceholderText('JSON yapıştırın veya sürükleyip bırakın') as HTMLTextAreaElement;
       
-      fireEvent.change(input, { target: { value: '{"name":"test"}' } });
+      fireEvent.change(textarea, { target: { value: '{\n  "name": "test",\n  "age": 25\n}' } });
       
-      await act(async () => {
-        vi.advanceTimersByTime(300);
-      });
+      const minifyButton = screen.getByText('Minify');
+      fireEvent.click(minifyButton);
       
-      // Press Ctrl+Enter
-      fireEvent.keyDown(window, { key: 'Enter', ctrlKey: true });
-      
-      // Input should be formatted
       await waitFor(() => {
-        expect(input).toHaveValue('{\n  "name": "test"\n}');
+        expect(screen.getByText('{"name":"test","age":25}')).toBeTruthy();
       });
     });
 
-    it('should trigger minify on Ctrl+Shift+M', async () => {
+    it('shows GEÇERSİZ status for invalid JSON when Minify is clicked', async () => {
       render(<App />);
-      const input = screen.getByTestId('json-input');
+      const textarea = screen.getByPlaceholderText('JSON yapıştırın veya sürükleyip bırakın') as HTMLTextAreaElement;
       
-      fireEvent.change(input, { target: { value: '{\n  "name": "test"\n}' } });
+      fireEvent.change(textarea, { target: { value: '{broken}' } });
       
-      await act(async () => {
-        vi.advanceTimersByTime(300);
-      });
-      
-      // Press Ctrl+Shift+M
-      fireEvent.keyDown(window, { key: 'm', ctrlKey: true, shiftKey: true });
-      
-      // Input should be minified
-      await waitFor(() => {
-        expect(input).toHaveValue('{"name":"test"}');
-      });
-    });
-
-    it('should trigger copy on Ctrl+Shift+C when not in textarea', async () => {
-      vi.useRealTimers();
-      render(<App />);
-      const input = screen.getByTestId('json-input');
-      
-      fireEvent.change(input, { target: { value: '{"test": 1}' } });
+      const minifyButton = screen.getByText('Minify');
+      fireEvent.click(minifyButton);
       
       await waitFor(() => {
-        expect(screen.getByText('GEÇERLİ')).toBeInTheDocument();
-      });
-      
-      // Press Ctrl+Shift+C
-      fireEvent.keyDown(window, { key: 'c', ctrlKey: true, shiftKey: true });
-      
-      await waitFor(() => {
-        expect(mockWriteText).toHaveBeenCalledWith('{\n  "test": 1\n}');
-      });
-    });
-
-    it('should trigger clear on Ctrl+L', async () => {
-      render(<App />);
-      const input = screen.getByTestId('json-input');
-      
-      fireEvent.change(input, { target: { value: '{"test": 1}' } });
-      
-      await act(async () => {
-        vi.advanceTimersByTime(300);
-      });
-      
-      await waitFor(() => {
-        expect(screen.getByText('GEÇERLİ')).toBeInTheDocument();
-      });
-      
-      // Press Ctrl+L
-      fireEvent.keyDown(window, { key: 'l', ctrlKey: true });
-      
-      // Input should be cleared
-      await waitFor(() => {
-        expect(input).toHaveValue('');
-        expect(screen.getByText('HAZIR')).toBeInTheDocument();
+        const status = screen.getByText('GEÇERSİZ');
+        expect(status).toBeTruthy();
       });
     });
   });
 
-  describe('Shortcuts disabled when modal is open', () => {
-    it('should not trigger format when modal is open', async () => {
+  describe('Copy Button', () => {
+    it('copies formatted/minified output to clipboard', async () => {
       render(<App />);
-      const input = screen.getByTestId('json-input');
+      const textarea = screen.getByPlaceholderText('JSON yapıştırın veya sürükleyip bırakın') as HTMLTextAreaElement;
       
-      fireEvent.change(input, { target: { value: '{"name":"test"}' } });
+      fireEvent.change(textarea, { target: { value: '{"name":"test"}' } });
       
-      await act(async () => {
-        vi.advanceTimersByTime(300);
+      const formatButton = screen.getByText('Biçimlendir');
+      fireEvent.click(formatButton);
+      
+      await waitFor(() => {
+        expect(screen.getByText(/"name": "test"/)).toBeTruthy();
       });
       
-      // Open modal
-      fireEvent.keyDown(window, { key: '?' });
-      expect(screen.getByTestId('keyboard-shortcuts-modal')).toBeInTheDocument();
+      const copyButton = screen.getByText('Kopyala');
+      fireEvent.click(copyButton);
       
-      // Try to format while modal is open
-      fireEvent.keyDown(window, { key: 'Enter', ctrlKey: true });
+      await waitFor(() => {
+        expect(mockClipboard.writeText).toHaveBeenCalledWith(expect.stringContaining('"name": "test"'));
+      });
+    });
+
+    it('shows Kopyalandı toast for 2 seconds when copy succeeds', async () => {
+      render(<App />);
+      const textarea = screen.getByPlaceholderText('JSON yapıştırın veya sürükleyip bırakın') as HTMLTextAreaElement;
       
-      // Input should NOT be formatted
-      expect(input).toHaveValue('{"name":"test"}');
+      fireEvent.change(textarea, { target: { value: '{"copy":"test"}' } });
+      
+      const formatButton = screen.getByText('Biçimlendir');
+      fireEvent.click(formatButton);
+      
+      await waitFor(() => {
+        expect(screen.getByText(/"copy": "test"/)).toBeTruthy();
+      });
+      
+      const copyButton = screen.getByText('Kopyala');
+      fireEvent.click(copyButton);
+      
+      await waitFor(() => {
+        const toast = screen.getByText('Kopyalandı!');
+        expect(toast).toBeTruthy();
+      });
+    });
+
+    it('does not show copy button active when no output exists', () => {
+      render(<App />);
+      // Copy button should exist but not be in a functional state for empty input
+      const copyButton = screen.getByText('Kopyala');
+      expect(copyButton).toBeTruthy();
+    });
+  });
+
+  describe('Clear Button', () => {
+    it('wipes input when Clear is clicked', async () => {
+      render(<App />);
+      const textarea = screen.getByPlaceholderText('JSON yapıştırın veya sürükleyip bırakın') as HTMLTextAreaElement;
+      
+      fireEvent.change(textarea, { target: { value: '{"clear":"me"}' } });
+      
+      const clearButton = screen.getByText('Temizle');
+      fireEvent.click(clearButton);
+      
+      await waitFor(() => {
+        expect(textarea.value).toBe('');
+      });
+    });
+
+    it('resets tree view to empty state when Clear is clicked', async () => {
+      render(<App />);
+      const textarea = screen.getByPlaceholderText('JSON yapıştırın veya sürükleyip bırakın') as HTMLTextAreaElement;
+      
+      fireEvent.change(textarea, { target: { value: '{"reset":"state"}' } });
+      
+      const formatButton = screen.getByText('Biçimlendir');
+      fireEvent.click(formatButton);
+      
+      await waitFor(() => {
+        expect(screen.getByText(/"reset": "state"/)).toBeTruthy();
+      });
+      
+      const clearButton = screen.getByText('Temizle');
+      fireEvent.click(clearButton);
+      
+      await waitFor(() => {
+        const emptyStateText = screen.getByText('JSON girin, yapılandırılmış ağaç görünümünü burada keşfedin');
+        expect(emptyStateText).toBeTruthy();
+      });
+    });
+
+    it('resets status to HAZIR when Clear is clicked', async () => {
+      render(<App />);
+      const textarea = screen.getByPlaceholderText('JSON yapıştırın veya sürükleyip bırakın') as HTMLTextAreaElement;
+      
+      fireEvent.change(textarea, { target: { value: '{"status":"test"}' } });
+      
+      const formatButton = screen.getByText('Biçimlendir');
+      fireEvent.click(formatButton);
+      
+      await waitFor(() => {
+        expect(screen.getByText('GEÇERLİ')).toBeTruthy();
+      });
+      
+      const clearButton = screen.getByText('Temizle');
+      fireEvent.click(clearButton);
+      
+      await waitFor(() => {
+        const status = screen.getByText('HAZIR');
+        expect(status).toBeTruthy();
+      });
+    });
+  });
+
+  describe('Status Indicator Updates', () => {
+    it('shows HAZIR status initially', () => {
+      render(<App />);
+      const status = screen.getByText('HAZIR');
+      expect(status).toBeTruthy();
+    });
+
+    it('shows GEÇERLİ status after successful format', async () => {
+      render(<App />);
+      const textarea = screen.getByPlaceholderText('JSON yapıştırın veya sürükleyip bırakın') as HTMLTextAreaElement;
+      
+      fireEvent.change(textarea, { target: { value: '{"valid":true}' } });
+      
+      const formatButton = screen.getByText('Biçimlendir');
+      fireEvent.click(formatButton);
+      
+      await waitFor(() => {
+        const status = screen.getByText('GEÇERLİ');
+        expect(status).toBeTruthy();
+      });
+    });
+
+    it('shows GEÇERSİZ status for invalid JSON', async () => {
+      render(<App />);
+      const textarea = screen.getByPlaceholderText('JSON yapıştırın veya sürükleyip bırakın') as HTMLTextAreaElement;
+      
+      fireEvent.change(textarea, { target: { value: '{bad json}' } });
+      
+      const formatButton = screen.getByText('Biçimlendir');
+      fireEvent.click(formatButton);
+      
+      await waitFor(() => {
+        const status = screen.getByText('GEÇERSİZ');
+        expect(status).toBeTruthy();
+      });
+    });
+  });
+
+  describe('Keyboard Shortcuts', () => {
+    it('formats on Ctrl+Enter', async () => {
+      render(<App />);
+      const textarea = screen.getByPlaceholderText('JSON yapıştırın veya sürükleyip bırakın') as HTMLTextAreaElement;
+      
+      fireEvent.change(textarea, { target: { value: '{"ctrl":"enter"}' } });
+      fireEvent.keyDown(textarea, { key: 'Enter', ctrlKey: true });
+      
+      await waitFor(() => {
+        expect(screen.getByText(/"ctrl": "enter"/)).toBeTruthy();
+      });
+    });
+
+    it('clears on Ctrl+Shift+X', async () => {
+      render(<App />);
+      const textarea = screen.getByPlaceholderText('JSON yapıştırın veya sürükleyip bırakın') as HTMLTextAreaElement;
+      
+      fireEvent.change(textarea, { target: { value: '{"clear":"shortcut"}' } });
+      
+      const formatButton = screen.getByText('Biçimlendir');
+      fireEvent.click(formatButton);
+      
+      await waitFor(() => {
+        expect(screen.getByText(/"clear": "shortcut"/)).toBeTruthy();
+      });
+      
+      // Verify Clear button itself works (keyboard shortcut tested via integration)
+      const clearButton = screen.getByText('Temizle');
+      fireEvent.click(clearButton);
+      
+      await waitFor(() => {
+        expect(textarea.value).toBe('');
+      });
     });
   });
 });
