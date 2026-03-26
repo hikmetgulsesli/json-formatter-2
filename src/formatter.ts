@@ -6,24 +6,16 @@
  * Format JSON string with proper indentation
  */
 export function formatJson(input: string): string {
-  try {
-    const parsed = JSON.parse(input);
-    return JSON.stringify(parsed, null, 2);
-  } catch (e) {
-    return String(e);
-  }
+  const parsed = JSON.parse(input);
+  return JSON.stringify(parsed, null, 2);
 }
 
 /**
  * Minify JSON string (remove all whitespace)
  */
 export function minifyJson(input: string): string {
-  try {
-    const parsed = JSON.parse(input);
-    return JSON.stringify(parsed);
-  } catch (e) {
-    return String(e);
-  }
+  const parsed = JSON.parse(input);
+  return JSON.stringify(parsed);
 }
 
 /**

@@ -2,7 +2,7 @@
  * Tree View Renderer Tests
  */
 
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import {
   parseJsonToTree,
   TYPE_COLORS,

@@ -340,16 +340,11 @@ export class TreeViewRenderer {
       chevron.style.fontSize = '1rem';
       chevron.style.color = '#adaaaa';
       chevron.style.transition = 'transform 0.2s ease';
+      chevron.style.cursor = 'pointer';
       row.appendChild(chevron);
 
-      // Click handler for chevron
-      row.addEventListener('click', (e) => {
-        e.stopPropagation();
-        this.toggleNode(node);
-      });
-
-      // Double-click handler for key
-      row.addEventListener('dblclick', (e) => {
+      // Click handler for chevron only
+      chevron.addEventListener('click', (e) => {
         e.stopPropagation();
         this.toggleNode(node);
       });
@@ -368,7 +363,14 @@ export class TreeViewRenderer {
       keySpan.style.color = '#00E5FF';
       keySpan.style.fontFamily = 'JetBrains Mono, monospace';
       keySpan.style.fontSize = '0.75rem';
+      keySpan.style.cursor = 'pointer';
       row.appendChild(keySpan);
+
+      // Double-click handler for key
+      keySpan.addEventListener('dblclick', (e) => {
+        e.stopPropagation();
+        this.toggleNode(node);
+      });
 
       // Colon separator
       const colon = document.createElement('span');
@@ -416,6 +418,20 @@ export class TreeViewRenderer {
 }
 
 /**
+ * Escape HTML special characters to prevent XSS
+ */
+function escapeHtml(str: string): string {
+  const htmlEscapes: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  };
+  return str.replace(/[&<>"']/g, (ch) => htmlEscapes[ch]);
+}
+
+/**
  * Create tree view HTML string (for server-side rendering or static HTML)
  */
 export function renderTreeToHtml(node: JsonNode | null): string {
@@ -430,8 +446,8 @@ export function renderTreeToHtml(node: JsonNode | null): string {
 
     let html = '<div class="tree-node-wrapper" style="margin-bottom: 0.25rem;">';
 
-    // Node row
-    html += `<div class="tree-node-row" style="display: flex; align-items: center; gap: 0.25rem; padding: 0.125rem 0.5rem; margin-left: -0.5rem; cursor: pointer; transition: background-color 0.15s ease;" onmouseenter="this.style.backgroundColor='#2a2a2a'" onmouseleave="this.style.backgroundColor='transparent'">`;
+    // Node row (hover handled via CSS)
+    html += `<div class="tree-node-row" style="display: flex; align-items: center; gap: 0.25rem; padding: 0.125rem 0.5rem; margin-left: -0.5rem; cursor: pointer; transition: background-color 0.15s ease;">`;
 
     // Chevron or spacer
     if (n.type === 'object' || n.type === 'array') {
@@ -443,7 +459,7 @@ export function renderTreeToHtml(node: JsonNode | null): string {
 
     // Key
     if (n.parent) {
-      html += `<span class="tree-node-key" style="color: #00E5FF; font-family: JetBrains Mono, monospace; font-size: 0.75rem;">${n.key}</span>`;
+      html += `<span class="tree-node-key" style="color: #00E5FF; font-family: JetBrains Mono, monospace; font-size: 0.75rem;">${escapeHtml(n.key)}</span>`;
       html += '<span style="color: #adaaaa; margin-right: 0.25rem;">:</span>';
     }
 
@@ -454,7 +470,7 @@ export function renderTreeToHtml(node: JsonNode | null): string {
       html += `<span class="${TYPE_CLASSES[n.type]}" style="color: #bac9cc; font-family: JetBrains Mono, monospace; font-size: 0.75rem;">${bracket}</span>`;
       html += `<span class="tree-node-count" style="color: rgba(173, 170, 170, 0.4); font-size: 0.625rem; margin-left: 0.25rem; font-weight: bold; text-transform: uppercase;">${n.type === 'object' ? '{' : '['}${count}${n.type === 'object' ? '}' : ']'}</span>`;
     } else {
-      html += `<span class="${TYPE_CLASSES[n.type]}" style="color: ${TYPE_COLORS[n.type]}; font-family: JetBrains Mono, monospace; font-size: 0.75rem;" title="${fullValue}">${displayValue}</span>`;
+      html += `<span class="${TYPE_CLASSES[n.type]}" style="color: ${TYPE_COLORS[n.type]}; font-family: JetBrains Mono, monospace; font-size: 0.75rem;" title="${escapeHtml(fullValue)}">${escapeHtml(displayValue)}</span>`;
     }
 
     html += '</div>'; // End row
