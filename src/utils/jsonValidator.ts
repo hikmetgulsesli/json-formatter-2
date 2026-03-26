@@ -5,9 +5,9 @@
 
 export interface ValidationError {
   message: string;
-  line: number;
-  column: number;
-  position: number;
+  line?: number;
+  column?: number;
+  position?: number;
 }
 
 export interface ValidationResult {
