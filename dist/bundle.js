@@ -21823,10 +21823,17 @@ function App() {
   const handleInputChange = (0, import_react.useCallback)((e) => {
     const value = e.target.value;
     setInput(value);
+    setStatus("ready");
+    setValidation(null);
+    setFormattedOutput("");
     debouncedValidate(value);
   }, [debouncedValidate]);
   const handleFormat = (0, import_react.useCallback)(() => {
     if (!input.trim()) return;
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+      debounceTimeoutRef.current = null;
+    }
     try {
       const formatted = formatJson(input);
       setInput(formatted);
@@ -21842,6 +21849,10 @@ function App() {
   }, [input]);
   const handleMinify = (0, import_react.useCallback)(() => {
     if (!input.trim()) return;
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+      debounceTimeoutRef.current = null;
+    }
     try {
       const minified = minifyJson(input);
       setInput(minified);
@@ -21874,7 +21885,13 @@ function App() {
     setStatus("ready");
     if (debounceTimeoutRef.current) {
       clearTimeout(debounceTimeoutRef.current);
+      debounceTimeoutRef.current = null;
     }
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
+      toastTimeoutRef.current = null;
+    }
+    setShowCopyToast(false);
     textareaRef.current?.focus();
   }, []);
   (0, import_react.useEffect)(() => {
@@ -21967,10 +21984,7 @@ function App() {
           ] })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex-1 flex font-mono text-sm relative", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "w-12 bg-[#000000] text-[#767575]/40 py-4 flex flex-col items-center select-none text-[12px] shrink-0", children: [
-            input.split("\n").map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: hasError && validation?.error?.line === i + 1 ? "text-[#ff716c]" : "", children: String(i + 1).padStart(2, "0") }, i)),
-            input === "" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "01" })
-          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-12 bg-[#000000] text-[#767575]/40 py-4 flex flex-col items-center select-none text-[12px] shrink-0", children: input.split("\n").map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: hasError && validation?.error?.line === i + 1 ? "text-[#ff716c]" : "", children: String(i + 1).padStart(2, "0") }, i)) }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
             "textarea",
             {

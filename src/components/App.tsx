@@ -53,12 +53,22 @@ export function App() {
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setInput(value);
+    // Reset UI to neutral state while debounced validation runs
+    setStatus('ready');
+    setValidation(null);
+    setFormattedOutput('');
     debouncedValidate(value);
   }, [debouncedValidate]);
 
   // Format action - updates both textarea and tree view atomically
   const handleFormat = useCallback(() => {
     if (!input.trim()) return;
+    
+    // Cancel any pending debounced validation to prevent stale updates
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+      debounceTimeoutRef.current = null;
+    }
     
     try {
       const formatted = formatJson(input);
@@ -79,6 +89,12 @@ export function App() {
   // Minify action - updates both textarea and tree view atomically
   const handleMinify = useCallback(() => {
     if (!input.trim()) return;
+    
+    // Cancel any pending debounced validation to prevent stale updates
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+      debounceTimeoutRef.current = null;
+    }
     
     try {
       const minified = minifyJson(input);
@@ -118,7 +134,13 @@ export function App() {
     setStatus('ready');
     if (debounceTimeoutRef.current) {
       clearTimeout(debounceTimeoutRef.current);
+      debounceTimeoutRef.current = null;
     }
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
+      toastTimeoutRef.current = null;
+    }
+    setShowCopyToast(false);
     textareaRef.current?.focus();
   }, []);
 
@@ -237,7 +259,6 @@ export function App() {
                   {String(i + 1).padStart(2, '0')}
                 </span>
               ))}
-              {input === '' && <span>01</span>}
             </div>
             {/* Textarea */}
             <textarea
