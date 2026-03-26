@@ -21777,7 +21777,7 @@ var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
 function App() {
   const [input, setInput] = (0, import_react.useState)("");
   const [formattedOutput, setFormattedOutput] = (0, import_react.useState)("");
-  const [validation, setValidation] = (0, import_react.useState)(null);
+  const [_validation, setValidation] = (0, import_react.useState)(null);
   const [status, setStatus] = (0, import_react.useState)("ready");
   const [showCopyToast, setShowCopyToast] = (0, import_react.useState)(false);
   const textareaRef = (0, import_react.useRef)(null);
@@ -21861,7 +21861,6 @@ function App() {
       }
     };
   }, []);
-  const isEmpty = !input.trim();
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "h-screen flex flex-col bg-[#0e0e0e] text-[#ffffff] overflow-hidden", children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", { className: "flex justify-between items-center w-full px-8 py-6 bg-[#131313] border-b border-[#484847]/15", children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center gap-8", children: [

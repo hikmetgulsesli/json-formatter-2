@@ -20,7 +20,7 @@ export function parseJson(input: string): ValidationResult {
     return { valid: true, data };
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : String(e);
-    const position = extractErrorPosition(errorMessage);
+    const position = extractErrorPosition(errorMessage, input);
     return {
       valid: false,
       error: {
@@ -32,20 +32,28 @@ export function parseJson(input: string): ValidationResult {
   }
 }
 
-function extractErrorPosition(errorMessage: string): { line?: number; column?: number } {
-  // Chrome/V8: "at position N"
-  const positionMatch = errorMessage.match(/at position (\d+)/);
+export function formatJson(input: string): string {
+  const result = parseJson(input);
+  if (!result.valid) {
+    throw new Error(result.error?.message || 'Geçersiz JSON');
+  }
+  return JSON.stringify(result.data, null, 2);
+}
+
+export function minifyJson(input: string): string {
+  const result = parseJson(input);
+  if (!result.valid) {
+    throw new Error(result.error?.message || 'Geçersiz JSON');
+  }
+  return JSON.stringify(result.data);
+}
+
+function extractErrorPosition(errorMessage: string, input: string): { line?: number; column?: number } {
+  // Try to extract position from error message
+  const positionMatch = errorMessage.match(/position (\d+)/i);
   if (positionMatch) {
     const position = parseInt(positionMatch[1], 10);
-    const lines = errorMessage.split('\n');
-    let charCount = 0;
-    for (let i = 0; i < lines.length; i++) {
-      if (charCount + lines[i].length >= position) {
-        return { line: i + 1, column: position - charCount + 1 };
-      }
-      charCount += lines[i].length + 1;
-    }
-    return { line: 1, column: position };
+    return getLineColumnFromPosition(input, position);
   }
 
   // Firefox: "line L column C"
@@ -57,11 +65,20 @@ function extractErrorPosition(errorMessage: string): { line?: number; column?: n
     };
   }
 
-  // Try to find "line N" pattern
-  const lineMatch = errorMessage.match(/line (\d+)/i);
-  if (lineMatch) {
-    return { line: parseInt(lineMatch[1], 10) };
-  }
-
   return {};
+}
+
+function getLineColumnFromPosition(input: string, position: number): { line: number; column: number } {
+  const lines = input.split('\n');
+  let charCount = 0;
+  
+  for (let i = 0; i < lines.length; i++) {
+    const lineLength = lines[i].length + 1; // +1 for newline
+    if (charCount + lineLength > position) {
+      return { line: i + 1, column: position - charCount + 1 };
+    }
+    charCount += lineLength;
+  }
+  
+  return { line: lines.length, column: 1 };
 }
