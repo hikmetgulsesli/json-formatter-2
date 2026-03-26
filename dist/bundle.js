@@ -1328,7 +1328,7 @@ var require_react_dom_development = __commonJS({
         return dispatcher;
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var React = require_react(), Internals = {
+      var React2 = require_react(), Internals = {
         d: {
           f: noop,
           r: function() {
@@ -1346,7 +1346,7 @@ var require_react_dom_development = __commonJS({
         },
         p: 0,
         findDOMNode: null
-      }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+      }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
       "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
         "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
       );
@@ -2881,7 +2881,7 @@ var require_react_dom_client_development = __commonJS({
         "number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
       }
       function validateOptionProps(element, props) {
-        null == props.value && ("object" === typeof props.children && null !== props.children ? React.Children.forEach(props.children, function(child) {
+        null == props.value && ("object" === typeof props.children && null !== props.children ? React2.Children.forEach(props.children, function(child) {
           null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
             "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
           ));
@@ -18513,14 +18513,14 @@ var require_react_dom_client_development = __commonJS({
         ));
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var Scheduler = require_scheduler(), React = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
+      var Scheduler = require_scheduler(), React2 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
       /* @__PURE__ */ Symbol.for("react.scope");
       var REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity");
       /* @__PURE__ */ Symbol.for("react.legacy_hidden");
       /* @__PURE__ */ Symbol.for("react.tracing_marker");
       var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel");
       /* @__PURE__ */ Symbol.for("react.view_transition");
-      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
         pending: false,
         data: null,
         method: null,
@@ -21308,7 +21308,7 @@ var require_react_dom_client_development = __commonJS({
         }
       };
       (function() {
-        var isomorphicReactPackageVersion = React.version;
+        var isomorphicReactPackageVersion = React2.version;
         if ("19.2.4" !== isomorphicReactPackageVersion)
           throw Error(
             'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.4\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -21662,18 +21662,18 @@ var require_react_jsx_runtime_development = __commonJS({
       function isValidElement(object) {
         return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
       }
-      var React = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+      var React2 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
         return null;
       };
-      React = {
+      React2 = {
         react_stack_bottom_frame: function(callStackForError) {
           return callStackForError();
         }
       };
       var specialPropKeyWarningShown;
       var didWarnAboutElementRef = {};
-      var unknownOwnerDebugStack = React.react_stack_bottom_frame.bind(
-        React,
+      var unknownOwnerDebugStack = React2.react_stack_bottom_frame.bind(
+        React2,
         UnknownOwner
       )();
       var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -21721,270 +21721,430 @@ var require_jsx_runtime = __commonJS({
 var import_client = __toESM(require_client(), 1);
 
 // src/components/App.tsx
-var import_react = __toESM(require_react(), 1);
+var import_react2 = __toESM(require_react(), 1);
 
 // src/utils/jsonValidator.ts
-function parseErrorPosition(errorMessage, input) {
-  const v8Match = errorMessage.match(/at position (\d+)/);
-  if (v8Match) {
-    const position2 = parseInt(v8Match[1], 10);
-    return calculateLineColumn(input, position2);
-  }
-  const ffMatch = errorMessage.match(/line (\d+) column (\d+)/);
-  if (ffMatch) {
-    const line = parseInt(ffMatch[1], 10);
-    const column = parseInt(ffMatch[2], 10);
-    const position2 = calculatePosition(input, line, column);
-    return { line, column, position: position2 };
-  }
-  const position = estimateErrorPosition(input);
-  return calculateLineColumn(input, position);
-}
-function calculatePosition(input, line, column) {
-  let currentLine = 1;
-  let pos = 0;
-  while (pos < input.length && currentLine < line) {
-    if (input[pos] === "\n") {
-      currentLine++;
-    }
-    pos++;
-  }
-  return pos + column - 1;
-}
-function calculateLineColumn(input, position) {
-  const clampedPos = Math.min(position, input.length);
-  const beforeError = input.slice(0, clampedPos);
-  const lines = beforeError.split("\n");
-  const line = lines.length;
-  const column = lines[lines.length - 1].length + 1;
-  return { line, column, position: clampedPos };
-}
-function estimateErrorPosition(input) {
-  const newlines = input.split("\n");
-  if (newlines.length > 1) {
-    return input.length - newlines[newlines.length - 1].length;
-  }
-  return Math.floor(input.length / 2);
-}
 function parseJson(input) {
-  if (!input || input.trim() === "") {
-    return {
-      valid: false,
-      error: {
-        message: "Bo\u015F girdi",
-        line: 0,
-        column: 0,
-        position: 0
-      }
-    };
+  if (!input.trim()) {
+    return { valid: false, error: { message: "Bo\u015F girdi" } };
   }
   try {
     const data = JSON.parse(input);
     return { valid: true, data };
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : String(e);
-    const { line, column, position } = parseErrorPosition(errorMessage, input);
+    const position = extractErrorPosition(errorMessage, input);
     return {
       valid: false,
       error: {
         message: errorMessage,
-        line,
-        column,
-        position
+        line: position.line,
+        column: position.column
       }
     };
   }
 }
-
-// src/components/EmptyState.tsx
-var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
-function EmptyState({ onFormat }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex flex-col h-full", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", { className: "flex-1 bg-[#0e0e0e] flex flex-col relative group", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "h-10 px-4 bg-[#131313] flex items-center justify-between border-b border-[#484847]/10", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-[10px] uppercase tracking-widest text-[#adaaaa] font-bold", children: "input.json" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex gap-4", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { className: "text-[10px] text-[#81ecff] uppercase font-bold hover:underline cursor-pointer", children: "Dosya Y\xFCkle" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { className: "text-[10px] text-[#adaaaa] uppercase font-bold cursor-pointer", children: "Temizle" })
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex-grow flex", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "w-12 bg-gradient-to-r from-[#131313] to-[#1a1a1a] flex flex-col items-center pt-4 text-[#adaaaa]/30 text-[12px] select-none", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "1" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "2" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "3" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "4" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "5" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex-grow flex flex-col items-center justify-center p-12 transition-all duration-300 bg-[#131313] group-focus-within:bg-[#262626]", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-16 h-16 rounded-full border border-dashed border-[#484847] flex items-center justify-center mb-6 opacity-40 group-hover:opacity-100 transition-opacity", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "material-symbols-outlined text-[#81ecff] text-3xl", children: "upload_file" }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "text-[#adaaaa] text-center max-w-xs leading-relaxed font-medium", children: "JSON yap\u0131\u015Ft\u0131r\u0131n veya s\xFCr\xFCkleyip b\u0131rak\u0131n" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-            "button",
-            {
-              onClick: onFormat,
-              className: "mt-8 px-6 py-2 bg-gradient-to-r from-[#00e3fd] to-[#00d4ec] text-[#005762] font-bold text-xs uppercase tracking-tighter rounded-sm hover:shadow-[0_0_20px_rgba(129,236,255,0.3)] transition-all active:scale-95 cursor-pointer",
-              children: "BI\xC7IMLENDIR"
-            }
-          )
-        ] })
-      ] })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-[1px] bg-[#484847]/10 h-full" }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", { className: "flex-1 bg-[#20201f] flex flex-col", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "h-10 px-4 bg-[#1a1a1a] flex items-center justify-between border-b border-[#484847]/10", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-[10px] uppercase tracking-widest text-[#adaaaa] font-bold", children: "tree_view.json" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex gap-4", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { className: "text-[10px] text-[#bc87fe] uppercase font-bold hover:underline cursor-pointer", children: "Kopyala" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { className: "text-[10px] text-[#adaaaa] uppercase font-bold cursor-pointer", children: "Geni\u015Flet" })
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex-grow flex flex-col items-center justify-center p-12 bg-[#20201f]", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "mb-6 opacity-20", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "material-symbols-outlined text-7xl text-[#bc87fe]", children: "account_tree" }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "text-[#adaaaa] text-center max-w-sm leading-relaxed text-sm", children: "JSON girin, yap\u0131land\u0131r\u0131lm\u0131\u015F a\u011Fa\xE7 g\xF6r\xFCn\xFCm\xFCn\xFC burada ke\u015Ffedin" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "mt-8 grid grid-cols-2 gap-2 opacity-30", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-1 w-24 bg-[#484847] rounded-full" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-1 w-12 bg-[#484847] rounded-full" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-1 w-16 bg-[#484847] rounded-full col-start-2" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-1 w-20 bg-[#484847] rounded-full" })
-        ] })
-      ] })
-    ] })
-  ] });
+function extractErrorPosition(errorMessage, input) {
+  const positionMatch = errorMessage.match(/position (\d+)/i);
+  if (positionMatch) {
+    const position = parseInt(positionMatch[1], 10);
+    return getLineColumnFromPosition(input, position);
+  }
+  const lineColMatch = errorMessage.match(/line (\d+) column (\d+)/i);
+  if (lineColMatch) {
+    return {
+      line: parseInt(lineColMatch[1], 10),
+      column: parseInt(lineColMatch[2], 10)
+    };
+  }
+  return {};
+}
+function getLineColumnFromPosition(input, position) {
+  const lines = input.split("\n");
+  let charCount = 0;
+  for (let i = 0; i < lines.length; i++) {
+    const lineLength = lines[i].length + 1;
+    if (charCount + lineLength > position) {
+      return { line: i + 1, column: position - charCount + 1 };
+    }
+    charCount += lineLength;
+  }
+  return { line: lines.length, column: 1 };
 }
 
-// src/components/ErrorState.tsx
-var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
-function ErrorState({ error, onFocusInput }) {
-  const errorText = error.line && error.column ? `Sat\u0131r ${error.line}, S\xFCtun ${error.column}: ${error.message}` : `Ge\xE7ersiz JSON: ${error.message}`;
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex flex-col h-full", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("section", { className: "flex-1 flex flex-col bg-[#131313] relative overflow-hidden", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex-1 flex font-mono text-sm leading-relaxed relative", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "w-12 bg-[#000000] text-[#767575]/40 py-4 flex flex-col items-center select-none text-[12px]", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "01" }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "02" }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[#ff716c] font-bold", children: "03" }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "04" }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "05" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex-1 p-4 bg-[#131313] text-[#adaaaa] font-medium overflow-auto", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "opacity-80", children: "{" }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "pl-4 opacity-80", children: '"version": "1.0.0",' }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "pl-4 bg-[#9f0519]/20 text-[#ffffff] border-l-[3px] border-[#ff716c] py-0.5", children: [
-            '"metadata": { "id": 102 } ',
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[#ff716c] font-bold", children: "MISSING_COMMA" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "pl-4 opacity-80", children: '"active": true' }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "opacity-80", children: "}" })
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "bg-[#9f0519]/90 backdrop-blur-md px-6 py-4 flex items-center gap-4 text-[#ffa8a3] border-t border-[#ff716c]/20", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "material-symbols-outlined text-2xl", style: { fontVariationSettings: "'FILL' 1" }, children: "warning" }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex flex-col", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[10px] font-bold tracking-widest uppercase opacity-80", children: "Hata Tespit Edildi" }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-            "button",
-            {
-              onClick: onFocusInput,
-              className: "text-sm font-medium text-left hover:underline cursor-pointer",
-              children: errorText
-            }
-          )
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-          "button",
-          {
-            onClick: () => {
-            },
-            className: "ml-auto p-1 hover:bg-white/10 transition-colors cursor-pointer",
-            children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "material-symbols-outlined text-sm", children: "close" })
-          }
-        )
-      ] })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "w-[1px] bg-[#484847]/10" }),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("section", { className: "flex-1 bg-[#20201f] flex items-center justify-center p-12", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "text-center space-y-6 max-w-xs", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "inline-flex items-center justify-center w-16 h-16 bg-[#ff716c]/5 rounded-none border border-[#ff716c]/20", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "material-symbols-outlined text-[#ff716c] text-3xl", children: "close" }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "space-y-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h2", { className: "text-lg font-bold tracking-tight uppercase text-[#ffffff]", children: "Ge\xE7erli JSON girin" }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "text-[11px] text-[#adaaaa] uppercase tracking-widest leading-relaxed", children: "Hatalar\u0131 d\xFCzeltmek i\xE7in soldaki d\xFCzenleyiciyi kullan\u0131n. S\xF6zdizimi ge\xE7erli oldu\u011Funda \xF6nizleme olu\u015Fturulacakt\u0131r." })
-      ] })
-    ] }) })
-  ] });
+// src/components/KeyboardShortcutsModal.tsx
+var import_react = __toESM(require_react(), 1);
+var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
+var shortcuts = [
+  { label: "Bi\xE7imlendir", keys: ["CTRL", "ENTER"] },
+  { label: "K\xFC\xE7\xFClt", keys: ["CTRL", "SHIFT", "M"] },
+  { label: "Kopyala", keys: ["CTRL", "SHIFT", "C"] },
+  { label: "Temizle", keys: ["CTRL", "L"] },
+  { label: "Bu pencere", keys: ["?"] }
+];
+function KeyboardShortcutsModal({ isOpen, onClose }) {
+  const modalRef = (0, import_react.useRef)(null);
+  (0, import_react.useEffect)(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+  const handleOverlayClick = (e) => {
+    if (e.target === modalRef.current) {
+      onClose();
+    }
+  };
+  if (!isOpen) return null;
+  const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
+  const modifierKey = isMac ? "\u2318" : "CTRL";
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    "div",
+    {
+      ref: modalRef,
+      className: "fixed inset-0 z-50 flex items-center justify-center bg-[#0e0e0e]/80 backdrop-blur-sm",
+      onClick: handleOverlayClick,
+      "data-testid": "keyboard-shortcuts-modal",
+      children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        "div",
+        {
+          className: "w-full max-w-2xl border border-[#484847]/15 shadow-2xl relative overflow-hidden",
+          style: { background: "rgba(26, 26, 26, 0.7)", backdropFilter: "blur(20px)" },
+          role: "dialog",
+          "aria-modal": "true",
+          "aria-labelledby": "keyboard-shortcuts-modal-title",
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex justify-between items-center px-8 py-6 border-b border-[#484847]/10", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                "h2",
+                {
+                  id: "keyboard-shortcuts-modal-title",
+                  className: "text-2xl font-black tracking-tighter text-[#81ecff] uppercase",
+                  children: "Klavye K\u0131sayollar\u0131"
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                "button",
+                {
+                  onClick: onClose,
+                  type: "button",
+                  className: "text-[#adaaaa] hover:text-[#81ecff] transition-colors",
+                  "data-testid": "close-modal-btn",
+                  "aria-label": "Kapat",
+                  children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "material-symbols-outlined text-3xl", children: "close" })
+                }
+              )
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "p-8", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "space-y-1", children: shortcuts.map((shortcut, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+              "div",
+              {
+                className: "group flex justify-between items-center py-4 px-4 hover:bg-[#262626] transition-colors",
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-[#adaaaa] text-sm tracking-widest uppercase", children: shortcut.label }),
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "flex gap-2", children: shortcut.keys.map((key, keyIndex) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { className: "flex gap-2", children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("kbd", { className: "px-2 py-1 bg-[#262626] text-[#81ecff] border border-[#484847]/20 text-xs font-bold", children: key === "CTRL" ? modifierKey : key }),
+                    keyIndex < shortcut.keys.length - 1 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-[#484847]", children: "+" })
+                  ] }, keyIndex)) })
+                ]
+              },
+              index
+            )) }) }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#81ecff] via-[#bc87fe] to-[#a0fff0] opacity-50" })
+          ]
+        }
+      )
+    }
+  );
 }
 
 // src/components/App.tsx
-var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
 function App() {
-  const [input, setInput] = (0, import_react.useState)("");
-  const [validation, setValidation] = (0, import_react.useState)(null);
-  const [showErrorBanner, setShowErrorBanner] = (0, import_react.useState)(false);
-  const textareaRef = (0, import_react.useRef)(null);
-  const validateInput = (0, import_react.useCallback)((value) => {
+  const [input, setInput] = (0, import_react2.useState)("");
+  const [formattedOutput, setFormattedOutput] = (0, import_react2.useState)("");
+  const [validation, setValidation] = (0, import_react2.useState)(null);
+  const [status, setStatus] = (0, import_react2.useState)("ready");
+  const [showCopyToast, setShowCopyToast] = (0, import_react2.useState)(false);
+  const [showShortcutsModal, setShowShortcutsModal] = (0, import_react2.useState)(false);
+  const textareaRef = (0, import_react2.useRef)(null);
+  const toastTimeoutRef = (0, import_react2.useRef)(null);
+  const debounceTimeoutRef = (0, import_react2.useRef)(null);
+  const debouncedValidate = (0, import_react2.useCallback)((value) => {
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+    }
     if (!value.trim()) {
+      setStatus("ready");
       setValidation(null);
-      setShowErrorBanner(false);
+      setFormattedOutput("");
       return;
     }
-    const result = parseJson(value);
-    setValidation(result);
-    setShowErrorBanner(!result.valid);
-  }, []);
-  (0, import_react.useEffect)(() => {
-    const timeoutId = setTimeout(() => {
-      validateInput(input);
+    debounceTimeoutRef.current = setTimeout(() => {
+      const result = parseJson(value);
+      setValidation(result);
+      if (result.valid) {
+        setStatus("valid");
+        const formatted = JSON.stringify(result.data, null, 2);
+        setFormattedOutput(formatted);
+      } else {
+        setStatus("invalid");
+        setFormattedOutput("");
+      }
     }, 300);
-    return () => clearTimeout(timeoutId);
-  }, [input, validateInput]);
-  const handleFocusInput = (0, import_react.useCallback)(() => {
+  }, []);
+  const handleInputChange = (0, import_react2.useCallback)((e) => {
+    const value = e.target.value;
+    setInput(value);
+    debouncedValidate(value);
+  }, [debouncedValidate]);
+  const handleFormat = (0, import_react2.useCallback)(() => {
+    if (!input.trim()) return;
+    const result = parseJson(input);
+    setValidation(result);
+    if (result.valid) {
+      const formatted = JSON.stringify(result.data, null, 2);
+      setInput(formatted);
+      setFormattedOutput(formatted);
+      setStatus("valid");
+    } else {
+      setStatus("invalid");
+      setFormattedOutput("");
+    }
+  }, [input]);
+  const handleMinify = (0, import_react2.useCallback)(() => {
+    if (!input.trim()) return;
+    const result = parseJson(input);
+    setValidation(result);
+    if (result.valid) {
+      const minified = JSON.stringify(result.data);
+      setInput(minified);
+      setFormattedOutput(minified);
+      setStatus("valid");
+    } else {
+      setStatus("invalid");
+      setFormattedOutput("");
+    }
+  }, [input]);
+  const handleCopy = (0, import_react2.useCallback)(() => {
+    if (!formattedOutput) return;
+    navigator.clipboard.writeText(formattedOutput).then(() => {
+      setShowCopyToast(true);
+      if (toastTimeoutRef.current) {
+        clearTimeout(toastTimeoutRef.current);
+      }
+      toastTimeoutRef.current = setTimeout(() => {
+        setShowCopyToast(false);
+      }, 2e3);
+    }).catch((error) => {
+      console.error("Failed to copy to clipboard:", error);
+    });
+  }, [formattedOutput]);
+  const handleClear = (0, import_react2.useCallback)(() => {
+    setInput("");
+    setFormattedOutput("");
+    setValidation(null);
+    setStatus("ready");
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+    }
     textareaRef.current?.focus();
   }, []);
-  const handleFormat = (0, import_react.useCallback)(() => {
-    textareaRef.current?.focus();
+  (0, import_react2.useEffect)(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "?" && document.activeElement !== textareaRef.current) {
+        e.preventDefault();
+        setShowShortcutsModal(true);
+      }
+      if (e.key === "Escape" && showShortcutsModal) {
+        e.preventDefault();
+        setShowShortcutsModal(false);
+        return;
+      }
+      if (showShortcutsModal) return;
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        e.preventDefault();
+        handleFormat();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "m") {
+        e.preventDefault();
+        handleMinify();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "c") {
+        if (document.activeElement !== textareaRef.current && formattedOutput) {
+          e.preventDefault();
+          handleCopy();
+        }
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "l") {
+        e.preventDefault();
+        handleClear();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleFormat, handleMinify, handleCopy, handleClear, formattedOutput, showShortcutsModal]);
+  (0, import_react2.useEffect)(() => {
+    return () => {
+      if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+      if (debounceTimeoutRef.current) clearTimeout(debounceTimeoutRef.current);
+    };
   }, []);
-  const isEmpty = !input.trim();
-  const hasError = validation && !validation.valid;
-  const isValid = validation && validation.valid;
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "h-screen flex flex-col bg-[#0e0e0e] text-[#ffffff] overflow-hidden", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { className: "flex justify-between items-center w-full px-8 py-6 bg-[#131313] border-b border-[#484847]/15", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center gap-8", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "text-2xl font-black tracking-tighter text-[#81ecff] font-mono", children: "FORMATTER" }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("nav", { className: "flex gap-6", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("a", { className: "text-[#81ecff] border-b-2 border-[#81ecff] pb-1 font-mono tracking-tight uppercase text-sm cursor-pointer", href: "#", children: "EDITOR" }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("a", { className: "text-[#adaaaa] hover:text-[#81ecff] transition-colors font-mono tracking-tight uppercase text-sm cursor-pointer", href: "#", children: "DOCS" }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("a", { className: "text-[#adaaaa] hover:text-[#81ecff] transition-colors font-mono tracking-tight uppercase text-sm cursor-pointer", href: "#", children: "HISTORY" })
+  const hasError = status === "invalid";
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "h-screen flex flex-col bg-[#0e0e0e] text-[#ffffff] overflow-hidden", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("header", { className: "flex justify-between items-center w-full px-8 py-6 bg-[#131313] border-b border-[#484847]/15", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-8", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-2xl font-black tracking-tighter text-[#81ecff] font-mono", children: "FORMATTER" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("nav", { className: "flex gap-6", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("a", { className: "text-[#81ecff] border-b-2 border-[#81ecff] pb-1 font-mono tracking-tight uppercase text-sm cursor-pointer", href: "#", children: "EDITOR" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("a", { className: "text-[#adaaaa] hover:text-[#81ecff] transition-colors font-mono tracking-tight uppercase text-sm cursor-pointer", href: "#", children: "DOCS" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("a", { className: "text-[#adaaaa] hover:text-[#81ecff] transition-colors font-mono tracking-tight uppercase text-sm cursor-pointer", href: "#", children: "HISTORY" })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center gap-4", children: [
-        isEmpty && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center gap-2 bg-[#484847]/10 text-[#adaaaa] px-3 py-1 text-[10px] font-bold tracking-widest uppercase", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-symbols-outlined text-sm", children: "info" }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "HAZIR" })
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-4", children: [
+        status === "ready" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-2 bg-[#484847]/10 text-[#adaaaa] px-3 py-1 text-[10px] font-bold tracking-widest uppercase", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "material-symbols-outlined text-sm", children: "info" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "HAZIR" })
         ] }),
-        isValid && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center gap-2 bg-[#4af8e3]/10 text-[#4af8e3] px-3 py-1 text-[10px] font-bold tracking-widest uppercase", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-symbols-outlined text-sm", children: "check_circle" }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "GE\xC7ERL\u0130" })
+        status === "valid" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-2 bg-[#4af8e3]/10 text-[#4af8e3] px-3 py-1 text-[10px] font-bold tracking-widest uppercase", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "material-symbols-outlined text-sm", children: "check_circle" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "GE\xC7ERL\u0130" })
         ] }),
-        hasError && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center gap-2 bg-[#ff716c]/10 text-[#ff716c] px-3 py-1 text-[10px] font-bold tracking-widest uppercase", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-symbols-outlined text-sm", children: "close" }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "GE\xC7ERS\u0130Z" })
+        status === "invalid" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-2 bg-[#ff716c]/10 text-[#ff716c] px-3 py-1 text-[10px] font-bold tracking-widest uppercase", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "material-symbols-outlined text-sm", children: "close" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "GE\xC7ERS\u0130Z" })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex gap-3", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-symbols-outlined text-[#adaaaa] cursor-pointer hover:text-[#81ecff] transition-colors", children: "settings" }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-symbols-outlined text-[#adaaaa] cursor-pointer hover:text-[#81ecff] transition-colors", children: "help" }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-symbols-outlined text-[#adaaaa] cursor-pointer hover:text-[#81ecff] transition-colors", children: "account_circle" })
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex gap-3", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "material-symbols-outlined text-[#adaaaa] cursor-pointer hover:text-[#81ecff] transition-colors", children: "settings" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+            "button",
+            {
+              onClick: () => setShowShortcutsModal(true),
+              className: "material-symbols-outlined text-[#adaaaa] cursor-pointer hover:text-[#81ecff] transition-colors",
+              "data-testid": "help-btn",
+              title: "Klavye K\u0131sayollar\u0131",
+              children: "help"
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "material-symbols-outlined text-[#adaaaa] cursor-pointer hover:text-[#81ecff] transition-colors", children: "account_circle" })
         ] })
       ] })
     ] }),
-    isEmpty ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(EmptyState, { onFormat: handleFormat }) : hasError ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ErrorState, { error: validation.error, onFocusInput: handleFocusInput }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ValidJsonView, { input, validation }),
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("footer", { className: "fixed bottom-0 w-full flex justify-between items-center px-6 py-2 bg-[#131313] border-t border-[#484847]/15 z-50", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center gap-4", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "text-[#81ecff] font-bold font-mono text-[10px]", children: "FORMATTER v1.2.4" }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "text-[#adaaaa] font-mono text-[10px] uppercase font-medium", children: "\xA9 2024 MONOLITHIC LOGIC. ALL SYSTEMS OPERATIONAL." })
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex-1 flex overflow-hidden mt-[73px] mb-8", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("section", { className: "flex-1 flex flex-col bg-[#131313] relative overflow-hidden border-r border-[#484847]/15", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "h-10 px-4 bg-[#131313] flex items-center justify-between border-b border-[#484847]/15", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[10px] uppercase tracking-widest text-[#adaaaa] font-bold", children: "input.json" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex gap-4", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+              "button",
+              {
+                onClick: handleFormat,
+                className: "text-[10px] text-[#81ecff] uppercase font-bold hover:underline cursor-pointer flex items-center gap-1",
+                "data-testid": "format-btn",
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "material-symbols-outlined text-sm", children: "auto_fix_high" }),
+                  "Bi\xE7imlendir"
+                ]
+              }
+            ),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+              "button",
+              {
+                onClick: handleClear,
+                className: "text-[10px] text-[#adaaaa] uppercase font-bold hover:underline cursor-pointer",
+                "data-testid": "clear-btn",
+                children: "Temizle"
+              }
+            )
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex-1 flex font-mono text-sm relative", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "w-12 bg-[#000000] text-[#767575]/40 py-4 flex flex-col items-center select-none text-[12px] shrink-0", children: [
+            input.split("\n").map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: hasError && validation?.error?.line === i + 1 ? "text-[#ff716c]" : "", children: String(i + 1).padStart(2, "0") }, i)),
+            input === "" && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "01" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+            "textarea",
+            {
+              ref: textareaRef,
+              value: input,
+              onChange: handleInputChange,
+              className: `flex-1 p-4 bg-[#131313] font-medium overflow-auto resize-none outline-none ${hasError ? "text-[#ff716c]" : "text-[#adaaaa]"}`,
+              placeholder: "JSON yap\u0131\u015Ft\u0131r\u0131n veya s\xFCr\xFCkleyip b\u0131rak\u0131n",
+              "data-testid": "json-input"
+            }
+          )
+        ] }),
+        hasError && validation?.error && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "px-4 py-3 bg-[#ff716c]/10 border-t border-[#ff716c]/20 flex items-center gap-3", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "material-symbols-outlined text-[#ff716c] text-sm", children: "warning" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: "text-[#ff716c] text-sm font-mono", children: [
+            "Ge\xE7ersiz JSON: ",
+            validation.error.message,
+            validation.error.line && ` (Sat\u0131r ${validation.error.line}${validation.error.column ? `, S\xFCtun ${validation.error.column}` : ""})`
+          ] })
+        ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex gap-6", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "text-[#adaaaa] hover:text-white transition-colors font-mono text-[10px] uppercase font-medium cursor-default", children: "STATUS: OK" }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "text-[#adaaaa] hover:text-white transition-colors font-mono text-[10px] uppercase font-medium cursor-default", children: "ENCODING: UTF-8" }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "text-[#81ecff] font-mono text-[10px] uppercase font-medium", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("section", { className: `flex-1 bg-[#20201f] flex flex-col relative overflow-hidden ${hasError ? "opacity-50 pointer-events-none" : ""}`, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "h-10 px-4 bg-[#1a1a1a] flex items-center justify-between border-b border-[#484847]/15", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[10px] uppercase tracking-widest text-[#adaaaa] font-bold", children: "tree_view.json" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex gap-4", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+              "button",
+              {
+                onClick: handleCopy,
+                disabled: !formattedOutput,
+                className: `text-[10px] uppercase font-bold flex items-center gap-1 ${formattedOutput ? "text-[#bc87fe] hover:underline cursor-pointer" : "text-[#484847] cursor-not-allowed"}`,
+                "data-testid": "copy-btn",
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "material-symbols-outlined text-sm", children: "content_copy" }),
+                  "Kopyala"
+                ]
+              }
+            ),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+              "button",
+              {
+                onClick: handleMinify,
+                className: "text-[10px] text-[#adaaaa] uppercase font-bold hover:underline cursor-pointer flex items-center gap-1",
+                "data-testid": "minify-btn",
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "material-symbols-outlined text-sm", children: "compress" }),
+                  "Minify"
+                ]
+              }
+            )
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "flex-1 overflow-auto p-6", "data-testid": "tree-view", children: formattedOutput && !hasError ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("pre", { className: "text-sm text-[#81ecff] font-mono whitespace-pre-wrap", children: formattedOutput }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex flex-col items-center justify-center h-full text-center", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "mb-6 opacity-20", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "material-symbols-outlined text-7xl text-[#bc87fe]", children: "account_tree" }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "text-[#adaaaa] text-center max-w-sm leading-relaxed text-sm", children: hasError ? "Hata d\xFCzeltilene kadar a\u011Fa\xE7 g\xF6r\xFCn\xFCm\xFC devre d\u0131\u015F\u0131" : "JSON girin, yap\u0131land\u0131r\u0131lm\u0131\u015F a\u011Fa\xE7 g\xF6r\xFCn\xFCm\xFCn\xFC burada ke\u015Ffedin" })
+        ] }) })
+      ] })
+    ] }),
+    showCopyToast && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "fixed top-24 right-8 bg-[#4af8e3] text-[#005762] px-6 py-3 font-bold text-sm rounded-sm shadow-lg z-50", "data-testid": "copy-toast", children: "Kopyaland\u0131!" }),
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+      KeyboardShortcutsModal,
+      {
+        isOpen: showShortcutsModal,
+        onClose: () => setShowShortcutsModal(false)
+      }
+    ),
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("footer", { className: "fixed bottom-0 w-full flex justify-between items-center px-6 py-2 bg-[#131313] border-t border-[#484847]/15 z-50", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-4", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[#81ecff] font-bold font-mono text-[10px]", children: "FORMATTER v1.2.4" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[#adaaaa] font-mono text-[10px] uppercase font-medium", children: "\xA9 2024 MONOLITHIC LOGIC. ALL SYSTEMS OPERATIONAL." })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex gap-6", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: "text-[#adaaaa] hover:text-white transition-colors font-mono text-[10px] uppercase font-medium cursor-default", children: [
+          "STATUS: ",
+          status.toUpperCase()
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[#adaaaa] hover:text-white transition-colors font-mono text-[10px] uppercase font-medium cursor-default", children: "ENCODING: UTF-8" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: "text-[#81ecff] font-mono text-[10px] uppercase font-medium", children: [
           input.split("\n").length,
           " LINES"
         ] })
@@ -21992,33 +22152,13 @@ function App() {
     ] })
   ] });
 }
-function ValidJsonView({ input, validation }) {
-  const formatted = JSON.stringify(validation.data, null, 2);
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex-1 flex overflow-hidden ml-0 mt-[73px] mb-8", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("section", { className: "flex-1 flex flex-col bg-[#131313] relative overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex-1 flex font-mono text-sm leading-relaxed relative", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "w-12 bg-[#000000] text-[#767575]/40 py-4 flex flex-col items-center select-none text-[12px]", children: input.split("\n").map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: String(i + 1).padStart(2, "0") }, i)) }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-        "textarea",
-        {
-          value: input,
-          onChange: () => {
-          },
-          className: "flex-1 p-4 bg-[#131313] text-[#adaaaa] font-medium overflow-auto resize-none outline-none",
-          placeholder: "JSON yap\u0131\u015Ft\u0131r\u0131n veya s\xFCr\xFCkleyip b\u0131rak\u0131n"
-        }
-      )
-    ] }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "w-[1px] bg-[#484847]/10" }),
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("section", { className: "flex-1 bg-[#20201f] flex flex-col p-6 overflow-auto", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("pre", { className: "text-sm text-[#81ecff] font-mono whitespace-pre-wrap", children: formatted }) })
-  ] });
-}
 
 // src/index.tsx
-var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
 var container = document.getElementById("root");
 if (container) {
   const root = (0, import_client.createRoot)(container);
-  root.render(/* @__PURE__ */ (0, import_jsx_runtime4.jsx)(App, {}));
+  root.render(/* @__PURE__ */ (0, import_jsx_runtime3.jsx)(App, {}));
 }
 /*! Bundled license information:
 
