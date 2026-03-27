@@ -1,0 +1,1091 @@
+[
+  {
+    "screenId": "765cf7700a82474e87357a1c9411473d",
+    "screenTitle": "MONOLITH.JSON - JSON TREE VIEW",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "Docs",
+        "href": "#",
+        "line": 96
+      },
+      {
+        "type": "link",
+        "label": "API",
+        "href": "#",
+        "line": 97
+      },
+      {
+        "type": "link",
+        "label": "Settings",
+        "href": "#",
+        "line": 98
+      },
+      {
+        "type": "button",
+        "label": "terminal",
+        "line": 102
+      },
+      {
+        "type": "button",
+        "label": "settings_input_component",
+        "line": 105
+      },
+      {
+        "type": "button",
+        "label": "code\nFormat",
+        "line": 124
+      },
+      {
+        "type": "button",
+        "label": "compress\nMinify",
+        "line": 128
+      },
+      {
+        "type": "button",
+        "label": "rule\nValidate",
+        "line": 132
+      },
+      {
+        "type": "button",
+        "label": "difference\nDiff",
+        "line": 136
+      },
+      {
+        "type": "button",
+        "label": "NEW_SESSION",
+        "line": 141
+      },
+      {
+        "type": "button",
+        "label": "history\nHistory",
+        "line": 146
+      },
+      {
+        "type": "button",
+        "label": "settings\nSettings",
+        "line": 150
+      },
+      {
+        "type": "button",
+        "label": "unfold_less",
+        "line": 199
+      },
+      {
+        "type": "button",
+        "label": "unfold_more",
+        "line": 202
+      },
+      {
+        "type": "button",
+        "label": "[icon: terminal]",
+        "line": 103
+      },
+      {
+        "type": "button",
+        "label": "[icon: settings_input_component]",
+        "line": 106
+      },
+      {
+        "type": "button",
+        "label": "[icon: data_object]",
+        "line": 116
+      },
+      {
+        "type": "button",
+        "label": "[icon: code]",
+        "line": 125
+      },
+      {
+        "type": "button",
+        "label": "[icon: compress]",
+        "line": 129
+      },
+      {
+        "type": "button",
+        "label": "[icon: rule]",
+        "line": 133
+      },
+      {
+        "type": "button",
+        "label": "[icon: difference]",
+        "line": 137
+      },
+      {
+        "type": "button",
+        "label": "[icon: history]",
+        "line": 147
+      },
+      {
+        "type": "button",
+        "label": "[icon: settings]",
+        "line": 151
+      },
+      {
+        "type": "button",
+        "label": "[icon: unfold_less]",
+        "line": 200
+      },
+      {
+        "type": "button",
+        "label": "[icon: unfold_more]",
+        "line": 203
+      },
+      {
+        "type": "button",
+        "label": "[icon: keyboard_arrow_down]",
+        "line": 211
+      },
+      {
+        "type": "button",
+        "label": "[icon: keyboard_arrow_down]",
+        "line": 231
+      },
+      {
+        "type": "button",
+        "label": "[icon: keyboard_arrow_right]",
+        "line": 257
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "Docs",
+        "href": "#",
+        "line": 96
+      },
+      {
+        "type": "link",
+        "label": "API",
+        "href": "#",
+        "line": 97
+      },
+      {
+        "type": "link",
+        "label": "Settings",
+        "href": "#",
+        "line": 98
+      }
+    ],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "terminal",
+        "line": 102
+      },
+      {
+        "type": "button",
+        "label": "settings_input_component",
+        "line": 105
+      },
+      {
+        "type": "button",
+        "label": "code\nFormat",
+        "line": 124
+      },
+      {
+        "type": "button",
+        "label": "compress\nMinify",
+        "line": 128
+      },
+      {
+        "type": "button",
+        "label": "rule\nValidate",
+        "line": 132
+      },
+      {
+        "type": "button",
+        "label": "difference\nDiff",
+        "line": 136
+      },
+      {
+        "type": "button",
+        "label": "NEW_SESSION",
+        "line": 141
+      },
+      {
+        "type": "button",
+        "label": "history\nHistory",
+        "line": 146
+      },
+      {
+        "type": "button",
+        "label": "settings\nSettings",
+        "line": 150
+      },
+      {
+        "type": "button",
+        "label": "unfold_less",
+        "line": 199
+      },
+      {
+        "type": "button",
+        "label": "unfold_more",
+        "line": 202
+      },
+      {
+        "type": "button",
+        "label": "[icon: terminal]",
+        "line": 103
+      },
+      {
+        "type": "button",
+        "label": "[icon: settings_input_component]",
+        "line": 106
+      },
+      {
+        "type": "button",
+        "label": "[icon: data_object]",
+        "line": 116
+      },
+      {
+        "type": "button",
+        "label": "[icon: code]",
+        "line": 125
+      },
+      {
+        "type": "button",
+        "label": "[icon: compress]",
+        "line": 129
+      },
+      {
+        "type": "button",
+        "label": "[icon: rule]",
+        "line": 133
+      },
+      {
+        "type": "button",
+        "label": "[icon: difference]",
+        "line": 137
+      },
+      {
+        "type": "button",
+        "label": "[icon: history]",
+        "line": 147
+      },
+      {
+        "type": "button",
+        "label": "[icon: settings]",
+        "line": 151
+      },
+      {
+        "type": "button",
+        "label": "[icon: unfold_less]",
+        "line": 200
+      },
+      {
+        "type": "button",
+        "label": "[icon: unfold_more]",
+        "line": 203
+      },
+      {
+        "type": "button",
+        "label": "[icon: keyboard_arrow_down]",
+        "line": 211
+      },
+      {
+        "type": "button",
+        "label": "[icon: keyboard_arrow_down]",
+        "line": 231
+      },
+      {
+        "type": "button",
+        "label": "[icon: keyboard_arrow_right]",
+        "line": 257
+      }
+    ],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 28,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "b0184093a7e04e78abdc892ccbbacd84",
+    "screenTitle": "JSON FORMATTER | Professional Data Tool",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "Yardım",
+        "href": "#",
+        "line": 102
+      },
+      {
+        "type": "link",
+        "label": "Ayarlar",
+        "href": "#",
+        "line": 103
+      },
+      {
+        "type": "button",
+        "label": "account_circle",
+        "line": 105
+      },
+      {
+        "type": "button",
+        "label": "fullscreen",
+        "line": 156
+      },
+      {
+        "type": "button",
+        "label": "auto_fix_high\n                        Biçimlendir",
+        "line": 174
+      },
+      {
+        "type": "button",
+        "label": "[icon: format_align_left]",
+        "line": 113
+      },
+      {
+        "type": "button",
+        "label": "[icon: compress]",
+        "line": 117
+      },
+      {
+        "type": "button",
+        "label": "[icon: content_copy]",
+        "line": 121
+      },
+      {
+        "type": "button",
+        "label": "[icon: delete_sweep]",
+        "line": 125
+      },
+      {
+        "type": "button",
+        "label": "[icon: account_tree]",
+        "line": 161
+      },
+      {
+        "type": "button",
+        "label": "[icon: auto_fix_high]",
+        "line": 175
+      },
+      {
+        "type": "input",
+        "label": "JSON yapıştırın veya sürükleyip bırakın",
+        "inputType": "textarea",
+        "placeholder": "JSON yapıştırın veya sürükleyip bırakın",
+        "line": 146
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "Yardım",
+        "href": "#",
+        "line": 102
+      },
+      {
+        "type": "link",
+        "label": "Ayarlar",
+        "href": "#",
+        "line": 103
+      }
+    ],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "account_circle",
+        "line": 105
+      },
+      {
+        "type": "button",
+        "label": "fullscreen",
+        "line": 156
+      },
+      {
+        "type": "button",
+        "label": "auto_fix_high\n                        Biçimlendir",
+        "line": 174
+      },
+      {
+        "type": "button",
+        "label": "[icon: format_align_left]",
+        "line": 113
+      },
+      {
+        "type": "button",
+        "label": "[icon: compress]",
+        "line": 117
+      },
+      {
+        "type": "button",
+        "label": "[icon: content_copy]",
+        "line": 121
+      },
+      {
+        "type": "button",
+        "label": "[icon: delete_sweep]",
+        "line": 125
+      },
+      {
+        "type": "button",
+        "label": "[icon: account_tree]",
+        "line": 161
+      },
+      {
+        "type": "button",
+        "label": "[icon: auto_fix_high]",
+        "line": 175
+      }
+    ],
+    "inputs": [
+      {
+        "type": "input",
+        "label": "JSON yapıştırın veya sürükleyip bırakın",
+        "inputType": "textarea",
+        "placeholder": "JSON yapıştırın veya sürükleyip bırakın",
+        "line": 146
+      }
+    ],
+    "hardcodedData": [],
+    "totalInteractive": 12,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "bddb055b202242b9932f237e41eef00c",
+    "screenTitle": "bddb055b202242b9932f237e41eef00c",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "code\nEditor",
+        "href": "#",
+        "line": 111
+      },
+      {
+        "type": "link",
+        "label": "compress\nMinify",
+        "href": "#",
+        "line": 115
+      },
+      {
+        "type": "link",
+        "label": "difference\nCompare",
+        "href": "#",
+        "line": 119
+      },
+      {
+        "type": "link",
+        "label": "history\nHistory",
+        "href": "#",
+        "line": 123
+      },
+      {
+        "type": "link",
+        "label": "settings\nSettings",
+        "href": "#",
+        "line": 127
+      },
+      {
+        "type": "link",
+        "label": "Documentation",
+        "href": "#",
+        "line": 220
+      },
+      {
+        "type": "link",
+        "label": "API",
+        "href": "#",
+        "line": 221
+      },
+      {
+        "type": "link",
+        "label": "Privacy",
+        "href": "#",
+        "line": 222
+      },
+      {
+        "type": "button",
+        "label": "settings",
+        "line": 93
+      },
+      {
+        "type": "button",
+        "label": "help",
+        "line": 96
+      },
+      {
+        "type": "button",
+        "label": "account_circle",
+        "line": 99
+      },
+      {
+        "type": "button",
+        "label": "Dosya Yükle",
+        "line": 141
+      },
+      {
+        "type": "button",
+        "label": "Temizle",
+        "line": 142
+      },
+      {
+        "type": "button",
+        "label": "BIÇIMLENDIR",
+        "line": 162
+      },
+      {
+        "type": "button",
+        "label": "Kopyala",
+        "line": 176
+      },
+      {
+        "type": "button",
+        "label": "Genişlet",
+        "line": 177
+      },
+      {
+        "type": "button",
+        "label": "[icon: settings]",
+        "line": 94
+      },
+      {
+        "type": "button",
+        "label": "[icon: help]",
+        "line": 97
+      },
+      {
+        "type": "button",
+        "label": "[icon: account_circle]",
+        "line": 100
+      },
+      {
+        "type": "button",
+        "label": "[icon: code]",
+        "line": 112
+      },
+      {
+        "type": "button",
+        "label": "[icon: compress]",
+        "line": 116
+      },
+      {
+        "type": "button",
+        "label": "[icon: difference]",
+        "line": 120
+      },
+      {
+        "type": "button",
+        "label": "[icon: history]",
+        "line": 124
+      },
+      {
+        "type": "button",
+        "label": "[icon: settings]",
+        "line": 128
+      },
+      {
+        "type": "button",
+        "label": "[icon: upload_file]",
+        "line": 157
+      },
+      {
+        "type": "button",
+        "label": "[icon: account_tree]",
+        "line": 183
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "code\nEditor",
+        "href": "#",
+        "line": 111
+      },
+      {
+        "type": "link",
+        "label": "compress\nMinify",
+        "href": "#",
+        "line": 115
+      },
+      {
+        "type": "link",
+        "label": "difference\nCompare",
+        "href": "#",
+        "line": 119
+      },
+      {
+        "type": "link",
+        "label": "history\nHistory",
+        "href": "#",
+        "line": 123
+      },
+      {
+        "type": "link",
+        "label": "settings\nSettings",
+        "href": "#",
+        "line": 127
+      },
+      {
+        "type": "link",
+        "label": "Documentation",
+        "href": "#",
+        "line": 220
+      },
+      {
+        "type": "link",
+        "label": "API",
+        "href": "#",
+        "line": 221
+      },
+      {
+        "type": "link",
+        "label": "Privacy",
+        "href": "#",
+        "line": 222
+      }
+    ],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "settings",
+        "line": 93
+      },
+      {
+        "type": "button",
+        "label": "help",
+        "line": 96
+      },
+      {
+        "type": "button",
+        "label": "account_circle",
+        "line": 99
+      },
+      {
+        "type": "button",
+        "label": "Dosya Yükle",
+        "line": 141
+      },
+      {
+        "type": "button",
+        "label": "Temizle",
+        "line": 142
+      },
+      {
+        "type": "button",
+        "label": "BIÇIMLENDIR",
+        "line": 162
+      },
+      {
+        "type": "button",
+        "label": "Kopyala",
+        "line": 176
+      },
+      {
+        "type": "button",
+        "label": "Genişlet",
+        "line": 177
+      },
+      {
+        "type": "button",
+        "label": "[icon: settings]",
+        "line": 94
+      },
+      {
+        "type": "button",
+        "label": "[icon: help]",
+        "line": 97
+      },
+      {
+        "type": "button",
+        "label": "[icon: account_circle]",
+        "line": 100
+      },
+      {
+        "type": "button",
+        "label": "[icon: code]",
+        "line": 112
+      },
+      {
+        "type": "button",
+        "label": "[icon: compress]",
+        "line": 116
+      },
+      {
+        "type": "button",
+        "label": "[icon: difference]",
+        "line": 120
+      },
+      {
+        "type": "button",
+        "label": "[icon: history]",
+        "line": 124
+      },
+      {
+        "type": "button",
+        "label": "[icon: settings]",
+        "line": 128
+      },
+      {
+        "type": "button",
+        "label": "[icon: upload_file]",
+        "line": 157
+      },
+      {
+        "type": "button",
+        "label": "[icon: account_tree]",
+        "line": 183
+      }
+    ],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 26,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "e42016b071244121a39609951c41e58d",
+    "screenTitle": "e42016b071244121a39609951c41e58d",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "EDITOR",
+        "href": "#",
+        "line": 101
+      },
+      {
+        "type": "link",
+        "label": "HISTORY",
+        "href": "#",
+        "line": 102
+      },
+      {
+        "type": "link",
+        "label": "DOCS",
+        "href": "#",
+        "line": 103
+      },
+      {
+        "type": "link",
+        "label": "PRIVACY",
+        "href": "#",
+        "line": 241
+      },
+      {
+        "type": "link",
+        "label": "TERMINAL_ACCESS",
+        "href": "#",
+        "line": 242
+      },
+      {
+        "type": "link",
+        "label": "API",
+        "href": "#",
+        "line": 243
+      },
+      {
+        "type": "button",
+        "label": "MINIFY",
+        "line": 106
+      },
+      {
+        "type": "button",
+        "label": "FORMAT",
+        "line": 107
+      },
+      {
+        "type": "button",
+        "label": "close",
+        "line": 177
+      },
+      {
+        "type": "button",
+        "label": "[icon: close]",
+        "line": 178
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "EDITOR",
+        "href": "#",
+        "line": 101
+      },
+      {
+        "type": "link",
+        "label": "HISTORY",
+        "href": "#",
+        "line": 102
+      },
+      {
+        "type": "link",
+        "label": "DOCS",
+        "href": "#",
+        "line": 103
+      },
+      {
+        "type": "link",
+        "label": "PRIVACY",
+        "href": "#",
+        "line": 241
+      },
+      {
+        "type": "link",
+        "label": "TERMINAL_ACCESS",
+        "href": "#",
+        "line": 242
+      },
+      {
+        "type": "link",
+        "label": "API",
+        "href": "#",
+        "line": 243
+      }
+    ],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "MINIFY",
+        "line": 106
+      },
+      {
+        "type": "button",
+        "label": "FORMAT",
+        "line": 107
+      },
+      {
+        "type": "button",
+        "label": "close",
+        "line": 177
+      },
+      {
+        "type": "button",
+        "label": "[icon: close]",
+        "line": 178
+      }
+    ],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 10,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "f57a1bf42e8b4dda8f91492242572355",
+    "screenTitle": "FORMATTER - JSON Error State",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "EDITOR",
+        "href": "#",
+        "line": 153
+      },
+      {
+        "type": "link",
+        "label": "DOCS",
+        "href": "#",
+        "line": 154
+      },
+      {
+        "type": "link",
+        "label": "HISTORY",
+        "href": "#",
+        "line": 155
+      },
+      {
+        "type": "button",
+        "label": "UPGRADE PRO",
+        "line": 131
+      },
+      {
+        "type": "button",
+        "label": "close",
+        "line": 199
+      },
+      {
+        "type": "button",
+        "label": "[icon: auto_fix_high]",
+        "line": 109
+      },
+      {
+        "type": "button",
+        "label": "[icon: compress]",
+        "line": 113
+      },
+      {
+        "type": "button",
+        "label": "[icon: fact_check]",
+        "line": 117
+      },
+      {
+        "type": "button",
+        "label": "[icon: close]",
+        "line": 119
+      },
+      {
+        "type": "button",
+        "label": "[icon: transform]",
+        "line": 122
+      },
+      {
+        "type": "button",
+        "label": "[icon: difference]",
+        "line": 126
+      },
+      {
+        "type": "button",
+        "label": "[icon: settings]",
+        "line": 136
+      },
+      {
+        "type": "button",
+        "label": "[icon: logout]",
+        "line": 140
+      },
+      {
+        "type": "button",
+        "label": "[icon: close]",
+        "line": 160
+      },
+      {
+        "type": "button",
+        "label": "[icon: settings]",
+        "line": 164
+      },
+      {
+        "type": "button",
+        "label": "[icon: help]",
+        "line": 165
+      },
+      {
+        "type": "button",
+        "label": "[icon: account_circle]",
+        "line": 166
+      },
+      {
+        "type": "button",
+        "label": "[icon: warning]",
+        "line": 194
+      },
+      {
+        "type": "button",
+        "label": "[icon: close]",
+        "line": 200
+      },
+      {
+        "type": "button",
+        "label": "[icon: close]",
+        "line": 210
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "EDITOR",
+        "href": "#",
+        "line": 153
+      },
+      {
+        "type": "link",
+        "label": "DOCS",
+        "href": "#",
+        "line": 154
+      },
+      {
+        "type": "link",
+        "label": "HISTORY",
+        "href": "#",
+        "line": 155
+      }
+    ],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "UPGRADE PRO",
+        "line": 131
+      },
+      {
+        "type": "button",
+        "label": "close",
+        "line": 199
+      },
+      {
+        "type": "button",
+        "label": "[icon: auto_fix_high]",
+        "line": 109
+      },
+      {
+        "type": "button",
+        "label": "[icon: compress]",
+        "line": 113
+      },
+      {
+        "type": "button",
+        "label": "[icon: fact_check]",
+        "line": 117
+      },
+      {
+        "type": "button",
+        "label": "[icon: close]",
+        "line": 119
+      },
+      {
+        "type": "button",
+        "label": "[icon: transform]",
+        "line": 122
+      },
+      {
+        "type": "button",
+        "label": "[icon: difference]",
+        "line": 126
+      },
+      {
+        "type": "button",
+        "label": "[icon: settings]",
+        "line": 136
+      },
+      {
+        "type": "button",
+        "label": "[icon: logout]",
+        "line": 140
+      },
+      {
+        "type": "button",
+        "label": "[icon: close]",
+        "line": 160
+      },
+      {
+        "type": "button",
+        "label": "[icon: settings]",
+        "line": 164
+      },
+      {
+        "type": "button",
+        "label": "[icon: help]",
+        "line": 165
+      },
+      {
+        "type": "button",
+        "label": "[icon: account_circle]",
+        "line": 166
+      },
+      {
+        "type": "button",
+        "label": "[icon: warning]",
+        "line": 194
+      },
+      {
+        "type": "button",
+        "label": "[icon: close]",
+        "line": 200
+      },
+      {
+        "type": "button",
+        "label": "[icon: close]",
+        "line": 210
+      }
+    ],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 20,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  }
+]
