@@ -21816,6 +21816,15 @@ function App() {
     setInput("");
   };
   const stats = input.trim() ? { size: new Blob([input]).size, lines: input.split("\n").length } : null;
+  const handleFormat = () => {
+    if (input.trim()) {
+      try {
+        formatJson(input);
+        document.querySelector(".bg-\\[\\#20201f\\]")?.scrollIntoView({ behavior: "smooth" });
+      } catch (e) {
+      }
+    }
+  };
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "min-h-screen bg-[#0e0e0e] text-[#adaaaa] font-mono p-6 lg:p-10", children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", { className: "mb-12", children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-baseline gap-4 mb-2", children: [
@@ -21861,15 +21870,6 @@ function App() {
       ] }) }) : viewMode === "tree" && tree ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-96 lg:h-[28rem] bg-[#262626] p-4 overflow-auto", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(JsonNodeView, { node: tree }) }) : viewMode === "raw" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("pre", { className: "h-96 lg:h-[28rem] bg-[#262626] p-4 overflow-auto text-[#81ecff] font-mono text-sm whitespace-pre-wrap", children: formatted || "" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("pre", { className: "h-96 lg:h-[28rem] bg-[#262626] p-4 overflow-auto text-[#a0fff0] font-mono text-sm whitespace-pre", children: formatted || "" }) })
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex flex-wrap gap-3 mt-6", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-        "button",
-        {
-          onClick: () => {
-          },
-          className: "px-6 py-2.5 bg-gradient-to-r from-[#81ecff] to-[#00d4ec] text-[#005762] font-mono text-sm font-medium hover:opacity-90 transition-opacity",
-          children: "B\u0130\xC7\u0130MLEND\u0130R"
-        }
-      ),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
         "button",
         {
