@@ -128,6 +128,18 @@ export function App() {
     ? { size: new Blob([input]).size, lines: input.split('\n').length }
     : null;
 
+  const handleFormat = () => {
+    if (input.trim()) {
+      try {
+        formatJson(input);
+        // Scroll to output section
+        document.querySelector('.bg-\\[\\#20201f\\]')?.scrollIntoView({ behavior: 'smooth' });
+      } catch (e) {
+        // silent
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#0e0e0e] text-[#adaaaa] font-mono p-6 lg:p-10">
       {/* Header */}
@@ -209,12 +221,6 @@ export function App() {
 
       {/* Actions */}
       <div className="flex flex-wrap gap-3 mt-6">
-        <button
-          onClick={() => {}}
-          className="px-6 py-2.5 bg-gradient-to-r from-[#81ecff] to-[#00d4ec] text-[#005762] font-mono text-sm font-medium hover:opacity-90 transition-opacity"
-        >
-          BİÇİMLENDİR
-        </button>
         <button
           onClick={handleCopy}
           disabled={!formatted}
